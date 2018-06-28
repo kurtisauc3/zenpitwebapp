@@ -1,11 +1,3 @@
 {% extends 'browse/base.html' %}
 {% block content %}
-<ol>
-  {% for phone in phones %}
-    {% if phone.DeviceName and phone.Brand %}
-    <li>Device Name: {{ phone.DeviceName }}<br>Brand: {{ phone.Brand }}</li>
-    {% else %}
-    {% endif %}
-  {% endfor %}
-</ol>
 {% endblock %}

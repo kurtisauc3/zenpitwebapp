@@ -1,0 +1,13 @@
+{% extends 'browse/base.html' %}
+{% block content %}
+<ol>
+  <!-- Dad catches the baseball! he then cuts it open and organizes it on the lawn -->
+  {% for phone in phones %}
+    <!-- make sure the baseball has some guts worth organizing -->
+    {% if phone.DeviceName and phone.Brand %}
+    <li>Device Name: {{ phone.DeviceName }}<br>Brand: {{ phone.Brand }}</li>
+    {% else %}
+    {% endif %}
+  {% endfor %}
+</ol>
+{% endblock %}
