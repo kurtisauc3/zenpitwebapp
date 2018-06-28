@@ -1,10 +1,6 @@
 """
-WSGI config for webapp project.
-
-It exposes the WSGI callable as a module-level variable named ``application``.
-
-For more information on this file, see
-https://docs.djangoproject.com/en/2.0/howto/deployment/wsgi/
+That app variable down there does the heavy lifting for how this beauty works as a web app
+Web apps like to talk, you know?
 """
 
 import os
@@ -13,4 +9,5 @@ from django.core.wsgi import get_wsgi_application
 
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "webapp.settings")
 
+# this one :)
 application = get_wsgi_application()

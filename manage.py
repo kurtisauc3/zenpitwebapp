@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+# you call all yo cli dev functions from this here file, it's got some powa
 import os
 import sys
 
