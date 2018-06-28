@@ -1,3 +1,8 @@
 {% extends 'browse/base.html' %}
 {% block content %}
+<nav> <!-- let's be real, it's just a search bar -->
+  <form action="{% url 'results' %}" method="get" accept-charset="utf-8">
+    <div class="search-bar big-boy"><input required name='search' type='text' value='' placeholder="search"></div>
+  </form>
+</nav>
 {% endblock %}

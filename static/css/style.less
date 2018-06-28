@@ -1,3 +1,31 @@
+// Color mixins, dark n gloomy to bright n hopeful
+@color1: #323a45;
+@color2: #3f6184;
+@color3: #778899;
+@color4: #5faeb6;
+@color5: #f6f7f9;
+
+// make it big, and give all the children some colors of the wind
 body, html {
   width: 100%;
+  color: @color1;
+}
+// give the only element on this page something to look at in the mirror
+.search-bar {
+  input {
+    color: inherit; // inputs are stubborn
+    width: 100%; // fill the tank
+    height: 50px;
+    text-align: center;
+    background: @color5; // soft, soothing backgrounds
+    border: none;
+  }
+  &.big-boy {
+    width: 500px;
+    margin: 250px auto 0 auto;
+    top: 250px;
+  }
+  &.small-boy {
+
+  }
 }

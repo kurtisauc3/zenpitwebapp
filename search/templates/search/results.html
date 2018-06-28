@@ -1,5 +1,10 @@
 {% extends 'browse/base.html' %}
 {% block content %}
+<nav> <!-- let's be real, it's just a search bar -->
+  <form action="{% url 'search' %}" method="get" accept-charset="utf-8">
+    <div class="search-bar small-boy"><input required name='search' type='text' value='' placeholder="search"></div>
+  </form>
+</nav>
 <ol>
   <!-- Dad catches the baseball! he then cuts it open and organizes it on the lawn -->
   {% for phone in phones %}
