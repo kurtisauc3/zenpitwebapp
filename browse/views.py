@@ -1,3 +1,5 @@
 from django.shortcuts import render
 
-# Give it some je ne sais quois
+def index(request):
+    #big tings
+    return render(request, 'browse/index.html', {})

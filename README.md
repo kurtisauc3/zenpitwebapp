@@ -1,1 +1,2 @@
-# I'll do a write up at some point
+requirements.txt has the goods
+pip install django
