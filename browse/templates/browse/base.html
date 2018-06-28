@@ -22,10 +22,10 @@
 </head>
   <body>
     <nav> <!-- let's be real, this is probably just gunna have 2 clickables -->
-      <ul>
-        <li>browse</li>
-        <li>search</li>
-      </ul>
+      <a href="{% url 'browse' %}"><h1>Browse</h1></a>
+      <form action="{% url 'search' %}" method="get" accept-charset="utf-8">
+        <input required name='search' type='text' value='' placeholder="search">
+      </form>
     </nav>
     <main> <!-- The payload -->
       {% block content %}

@@ -1,0 +1,7 @@
+# ignore the whole virtual env
+/env/
+# ignore all cache files for the git
+*.pyc
+__pycache__/
+# ignore database files
+*.sqlite3

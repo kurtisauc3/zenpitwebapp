@@ -1,8 +1,11 @@
 {% extends 'browse/base.html' %}
-{% block head %}
-<!-- unique meta stuff -->
-{% endblock %}
 {% block content %}
-<!-- unique content stuff -->
-<h1>search's index!</h1>
+<ol>
+  {% for phone in phones %}
+    {% if phone.DeviceName and phone.Brand %}
+    <li>Device Name: {{ phone.DeviceName }}<br>Brand: {{ phone.Brand }}</li>
+    {% else %}
+    {% endif %}
+  {% endfor %}
+</ol>
 {% endblock %}

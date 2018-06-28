@@ -8,6 +8,6 @@ from django.conf.urls import include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('search/', include('search.urls')),
+    path('results/', include('search.urls')),
     path('', include('browse.urls')),
 ]
