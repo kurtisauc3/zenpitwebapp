@@ -13,7 +13,7 @@ def results(request):
     val = request.GET.get('search')
     # use this beautiful fonoapi to do all the wuurk
     phones = fon.getdevice(val)
-    # apparently json files dont self nuke, so if the aint got a name, lets nuke em
+    # apparently json files dont self nuke, so if it aint got a name, lets nuke em
     try:
         for phone in phones:
             if phone['DeviceName'] is None:
@@ -21,9 +21,9 @@ def results(request):
                 phone = []
     except:
         phones = []
-    # page, lawn, what's the difference, we can play ball in this one
+
+    # sets up pagination, defaults to page 1
     page = request.GET.get('page', 1)
-    # but we'll look at 10, cuz i can really throw sometimes
     paginator = Paginator(phones, 10)
     try:
         phones = paginator.page(page)
@@ -31,5 +31,7 @@ def results(request):
         phones = paginator.page(1)
     except EmptyPage:
         phones = paginator.page(paginator.num_pages)
+
+
     # toss a baseball (loaded with results) to dad, who's standing in search/results.html
     return render(request, 'search/results.html', {'phones': phones})

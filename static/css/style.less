@@ -5,6 +5,17 @@
 @color4: #5faeb6;
 @color5: #f6f7f9;
 
+.translate (@x, @y:0) {
+	-webkit-transform: translate(@x, @y);
+	-moz-transform: translate(@x, @y);
+	-ms-transform: translate(@x, @y);
+	-o-transform: translate(@x, @y);
+}
+
+// browsers likes to color
+*:focus {
+    outline: none;
+}
 // make it big, and give all the children some colors of the wind
 body, html {
   width: 100%;
@@ -13,11 +24,50 @@ body, html {
   font-weight: bold;
   letter-spacing: 0.5px;
 }
+.browse {
+  .device-name {
+    font-size: 4em;
+  }
+}
 // gunna make this pretty later :)
 .pagination {
-  font-size: 4em;
+  position: fixed;
+  left: 50%;
+  .translate(-50%,0);
+  bottom: 10px;
+  width: 100%;
+  max-width: 500px;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-content: flex-start;
+  -webkit-flex-flow: row wrap;
+  flex-flow: row wrap;
+  font-size: 1.5em;
+  a, span {
+    color: @color5;
+    text-decoration: none;
+    display: block;
+    padding-top: 50%;
+    padding-bottom: 50%;
+  }
   li {
-    display: inline-block;
+    flex: 1;
+    border-radius: 50%;
+    background: fade(@color2, 75%);
+    margin: 10px;
+    line-height: 0px;
+    border: 3px solid fade(@color3, 50%);
+    &.active {
+      border: 3px solid fade(@color2, 20%);
+      background: none;
+      span {
+
+        outline: 6px solid @color3;
+        background: @color2;
+      }
+    }
+    
   }
 }
 // search results ul, and li items
@@ -35,22 +85,59 @@ body, html {
   }
 }
 // give the only element on this page something to look at in the mirror
-.search-bar {
-  font-size: 2.5em;
-  input {
-    color: @color1;
-    width: 100%; // fill the tank
-    height: 50px;
-    text-align: center;
-    background: @color5; // soft, soothing backgrounds
-    border: none;
+.search-box {
+  max-width: 100%;
+  width: 500px;
+  &.abs-center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    .translate(-50%,-50%);
   }
-  &.middle-boy {
-    width: 500px;
-    margin: 250px auto 0 auto;
+  &.rel-top {
+    position: relative;
+    margin: 0 auto;
+    .logo {
+      height: 40px;
+    }
+  }
+  .search-bar {
+    position: relative;
+    font-size: 2.5em;
     max-width: 100%;
+    width: 500px;
+    .logo {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 75px;
+      img {
+        max-width: 100%;
+        max-height: 100%;
+      }
+    }
+    input {
+      color: @color1;
+      width: 100%; // fill the tank
+      height: 50px;
+      text-align: left;
+      background: @color5; // soft, soothing backgrounds
+      border-radius: 2px;
+      border: 2px solid @color2;
+      padding: 0 20px 0 75px;
+      overflow-x: hidden;
+    }
   }
-  &.top-boy {
-    width: 100%;
-  }
+}
+// them teenie tiny phones
+@media only screen
+  and (min-device-width: 320px)
+  and (max-device-width: 640px) {
+
+}
+// tableterino
+@media only screen
+  and (min-device-width: 768px)
+  and (max-device-width: 1024px) {
+
 }

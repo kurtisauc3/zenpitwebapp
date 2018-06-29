@@ -1,8 +1,12 @@
-{% extends 'browse/base.html' %}
+{% extends 'search/base.html' %}
+{% load static %}
 {% block content %}
-<nav> <!-- let's be real, it's just a search bar -->
+<nav class="search-box abs-center"> <!-- let's be real, it's just a search bar -->
   <form action="{% url 'results' %}" method="get" accept-charset="utf-8">
-    <div class="search-bar middle-boy"><input required autocomplete='off' name='search' type='text' value='' placeholder="search"></div>
+    <div class="search-bar">
+      <div class="logo"><img src="{% static '/images/fono-logo.png' %}" alt="fono logo"/></div>
+      <input required autocomplete='off' name='search' type='text' placeholder="search for a phone" maxlength="30" autofocus>
+    </div>
   </form>
 </nav>
 {% endblock %}
