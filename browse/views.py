@@ -8,4 +8,5 @@ def index(request):
     #big tings
     brand = "iPhone"
     phones = fon.getdevice(brand)
+    sorted(phones)
     return render(request, 'browse/index.html', {'phones': phones})

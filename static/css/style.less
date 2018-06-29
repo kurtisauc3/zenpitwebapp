@@ -8,24 +8,49 @@
 // make it big, and give all the children some colors of the wind
 body, html {
   width: 100%;
-  color: @color1;
+  font-family: "Open Sans";
+  font-size: 62.5%;
+  font-weight: bold;
+  letter-spacing: 0.5px;
+}
+// gunna make this pretty later :)
+.pagination {
+  font-size: 4em;
+  li {
+    display: inline-block;
+  }
+}
+// search results ul, and li items
+.results {
+  width: 100%;
+  font-size: 2em;
+  line-height: 2em;
+  li {
+    position: relative;
+    flex: 1;
+    cursor: pointer;
+    height: auto;
+    .device-name {
+    }
+  }
 }
 // give the only element on this page something to look at in the mirror
 .search-bar {
+  font-size: 2.5em;
   input {
-    color: inherit; // inputs are stubborn
+    color: @color1;
     width: 100%; // fill the tank
     height: 50px;
     text-align: center;
     background: @color5; // soft, soothing backgrounds
     border: none;
   }
-  &.big-boy {
+  &.middle-boy {
     width: 500px;
     margin: 250px auto 0 auto;
-    top: 250px;
+    max-width: 100%;
   }
-  &.small-boy {
-
+  &.top-boy {
+    width: 100%;
   }
 }
