@@ -11,23 +11,34 @@
 	-ms-transform: translate(@x, @y);
 	-o-transform: translate(@x, @y);
 }
-
+.unselectable {
+  -webkit-user-select: none;  /* Chrome all / Safari all */
+  -moz-user-select: none;     /* Firefox all */
+  -ms-user-select: none;      /* IE 10+ */
+  user-select: none;          /* Likely future */
+}
 // browsers likes to color
 *:focus {
     outline: none;
 }
 // make it big, and give all the children some colors of the wind
 body, html {
+  postition: relative;
   width: 100%;
+  height: 100%;
   font-family: "Open Sans";
   font-size: 62.5%;
   font-weight: bold;
   letter-spacing: 0.5px;
+  overflow-x: hidden;
 }
 .browse {
   .device-name {
     font-size: 4em;
   }
+}
+.pagination-wrapper {
+  width: auto;
 }
 // gunna make this pretty later :)
 .pagination {
@@ -50,37 +61,70 @@ body, html {
     display: block;
     padding-top: 50%;
     padding-bottom: 50%;
+
   }
   li {
+    -webkit-flex-grow: 1;
     flex: 1;
     border-radius: 50%;
     background: fade(@color2, 75%);
-    margin: 10px;
+    &:hover {
+      background: @color2;
+    }
+    &.disabled {
+      &:hover {
+        background: fade(@color2, 75%)
+      }
+    }
+    margin: 3px;
     line-height: 0px;
-    border: 3px solid fade(@color3, 50%);
-    &.active {
+    border: 3px solid fade(@color5, 10%);
+    &.active-page {
       border: 3px solid fade(@color2, 20%);
       background: none;
       span {
-
         outline: 6px solid @color3;
         background: @color2;
       }
     }
-    
+
   }
 }
 // search results ul, and li items
 .results {
+  position: fixed;
+  top: 50%;
+  .translate(0,-50%);
   width: 100%;
   font-size: 2em;
   line-height: 2em;
+  color: fade(@color1, 20%);
   li {
-    position: relative;
-    flex: 1;
+    text-align: center;
     cursor: pointer;
     height: auto;
+    width: 100%;
+    .device-brand {
+      display: none;
+    }
     .device-name {
+    }
+    &.active {
+      position: relative;
+      font-size: 2em;
+      margin: 30px 0;
+      color: @color1;
+      .device-brand {
+        .unselectable();
+        z-index: -1;
+        display: block;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        font-size: 4em;
+        .translate(-50%,-50%);
+        color: fade(@color1, 5%);
+      }
     }
   }
 }
@@ -95,8 +139,10 @@ body, html {
     .translate(-50%,-50%);
   }
   &.rel-top {
-    position: relative;
-    margin: 0 auto;
+    position: fixed;
+    top: 0;
+    left: 50%;
+    .translate(-50%,0);
     .logo {
       height: 40px;
     }
