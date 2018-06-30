@@ -14,6 +14,7 @@
   {% for phone in phones %}
     <li class="device{% if forloop.first %} active first-item{% endif %}{% if forloop.last %} last-item{% endif %}">
       <div class="device-name">{{ phone.DeviceName }}<div class="device-brand">{{ phone.Brand }}</div></div>
+      <div class="device-details">wow the technology is {{ phone.technology }}</div>
     </li>
   {% empty %}
     <!-- The ball was hollow... what a joke -->
@@ -23,32 +24,35 @@
 
 <!-- Holy cow there are more than 10 phones inside this baseball, lets use the neighbors lawn -->
 {% if phones.has_other_pages %}
-<div class="pagination-wrapper">
+
 <ul class="pagination">
+  <div id="pagination-anim">
   {% if phones.has_previous %}
     <!-- i think that last lawn was nicer -->
-    <li><a href="?search={{ request.GET.search }}&page={{ phones.previous_page_number }}">&laquo;</a></li>
+    <li class="pagination-prev"><a href="?search={{ request.GET.search }}&page={{ phones.previous_page_number }}">&laquo;</a></li>
   {% else %}
     <!-- we're up against a wall here -->
-    <li class="disabled"><span>&laquo;</span></li>
+    <li class="disabled pagination-prev"><span>&laquo;</span></li>
   {% endif %}
   {% for i in phones.paginator.page_range %}
     {% if phones.number == i %}
       <!-- let's bring a lawn chair so we know what yard we're in (really?) -->
-      <li class="active-page"><span>{{ i }}</span></li>
+      <li class="active-page"><span>{{ i }}<i class="arrow up"></i></span></li>
     {% elif i > phones.number|add:'-10' and i < phones.number|add:'10' %}
       <!-- looks like the other yards don't have lawn chairs -->
-      <li><a href="?search={{ request.GET.search }}&page={{ i }}">{{ i }}</a></li>
+      <li class="pagination-numbers"><a href="?search={{ request.GET.search }}&page={{ i }}">{{ i }}</a></li>
     {% endif %}
   {% endfor %}
   {% if phones.has_next %}
     <!-- let's find one with a pool -->
-    <li><a href="?search={{ request.GET.search }}&page={{ phones.next_page_number }}">&raquo;</a></li>
+    <li class="pagination-next"><a href="?search={{ request.GET.search }}&page={{ phones.next_page_number }}">&raquo;</a></li>
   {% else %}
     <!-- we hit the costco -->
-    <li class="disabled"><span>&raquo;</span></li>
+    <li class="disabled pagination-next"><span>&raquo;</span></li>
   {% endif %}
-</ul>
+  <div class="results-count">Showing {{ phones.start_index }}-{{ phones.end_index }} of {{ phones.paginator.count }}</div>
 </div>
+</ul>
+
 {% endif %}
 {% endblock %}

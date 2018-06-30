@@ -4,12 +4,23 @@
 @color3: #778899;
 @color4: #5faeb6;
 @color5: #f6f7f9;
-
+.rotate (@deg) {
+	-webkit-transform: rotate(@deg);
+	-moz-transform: rotate(@deg);
+	-ms-transform: rotate(@deg);
+	-o-transform: rotate(@deg);
+}
 .translate (@x, @y:0) {
 	-webkit-transform: translate(@x, @y);
 	-moz-transform: translate(@x, @y);
 	-ms-transform: translate(@x, @y);
 	-o-transform: translate(@x, @y);
+}
+.transform-origin (@x:center, @y:center) {
+	-webkit-transform-origin: @x @y;
+	-moz-transform-origin:    @x @y;
+	-ms-transform-origin:     @x @y;
+	-o-transform-origin:      @x @y;
 }
 .unselectable {
   -webkit-user-select: none;  /* Chrome all / Safari all */
@@ -32,13 +43,30 @@ body, html {
   letter-spacing: 0.5px;
   overflow-x: hidden;
 }
+i {
+	position: absolute;
+	&.arrow {
+	  border: solid @color5;
+	  border-width: 0 1px 1px 0;
+	  padding: 1px;
+		&.down {
+			top: 65%;
+			left: 50%;
+			.transform-origin(0,0);
+	    .rotate(45deg);
+		}
+		&.up {
+			top: 35%;
+			left: 50%;
+			.transform-origin(0,0);
+	    .rotate(-135deg);
+		}
+	}
+}
 .browse {
   .device-name {
     font-size: 4em;
   }
-}
-.pagination-wrapper {
-  width: auto;
 }
 // gunna make this pretty later :)
 .pagination {
@@ -47,45 +75,47 @@ body, html {
   .translate(-50%,0);
   bottom: 10px;
   width: 100%;
-  max-width: 500px;
+  max-width: 600px;
   text-align: center;
-  display: flex;
-  justify-content: center;
-  align-content: flex-start;
-  -webkit-flex-flow: row wrap;
-  flex-flow: row wrap;
   font-size: 1.5em;
-  a, span {
-    color: @color5;
-    text-decoration: none;
-    display: block;
-    padding-top: 50%;
-    padding-bottom: 50%;
-
-  }
   li {
-    -webkit-flex-grow: 1;
-    flex: 1;
+		display: inline-block;
+		width: 40px;
     border-radius: 50%;
-    background: fade(@color2, 75%);
+		margin: 3px;
+    line-height: 0px;
+    border: 1px solid @color2;
+    background: @color5;
+		a, span {
+	    color: @color2;
+	    text-decoration: none;
+	    display: block;
+	    padding-top: 50%;
+	    padding-bottom: 50%;
+			&:hover {
+				color: @color5;
+				cursor: pointer;
+			}
+	  }
     &:hover {
       background: @color2;
     }
     &.disabled {
       &:hover {
-        background: fade(@color2, 75%)
+        background: @color5;
+				a, span {
+					&:hover {
+						color: @color2;
+					}
+				}
       }
     }
-    margin: 3px;
-    line-height: 0px;
-    border: 3px solid fade(@color5, 10%);
     &.active-page {
-      border: 3px solid fade(@color2, 20%);
-      background: none;
-      span {
-        outline: 6px solid @color3;
-        background: @color2;
-      }
+			background: @color2;
+			span {
+				position: relative;
+				color: @color5;
+			}
     }
 
   }
@@ -109,11 +139,16 @@ body, html {
     }
     .device-name {
     }
+		.device-details {
+			display: none;
+		}
     &.active {
       position: relative;
-      font-size: 2em;
-      margin: 30px 0;
-      color: @color1;
+			.device-name {
+				font-size: 2em;
+	      margin: 30px 0;
+	      color: @color1;
+			}
       .device-brand {
         .unselectable();
         z-index: -1;
@@ -127,6 +162,16 @@ body, html {
       }
     }
   }
+}
+.results-count {
+	position: absolute;
+	background: white;
+	padding: 3px;
+	top: 0;
+	left: 50%;
+	.translate(-50%, -200%);
+  color: fade(@color1, 20%);
+	font-size: 1.2em;
 }
 // give the only element on this page something to look at in the mirror
 .search-box {
@@ -175,10 +220,9 @@ body, html {
     }
   }
 }
+
 // them teenie tiny phones
-@media only screen
-  and (min-device-width: 320px)
-  and (max-device-width: 640px) {
+@media only screen and (min-device-width: 320px) and (max-device-width: 480px) {
 
 }
 // tableterino
