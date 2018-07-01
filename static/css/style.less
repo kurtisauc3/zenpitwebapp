@@ -1,9 +1,13 @@
-// Color mixins, dark n gloomy to bright n hopeful
+/*-------------------------site variables---------------------------*/
 @color1: #323a45;
 @color2: #3f6184;
 @color3: #778899;
 @color4: #5faeb6;
 @color5: #f6f7f9;
+/*-------------------------site mixins---------------------------*/
+.cursor-p {
+	cursor: pointer;
+}
 .rotate (@deg) {
 	-webkit-transform: rotate(@deg);
 	-moz-transform: rotate(@deg);
@@ -18,21 +22,18 @@
 }
 .transform-origin (@x:center, @y:center) {
 	-webkit-transform-origin: @x @y;
-	-moz-transform-origin:    @x @y;
-	-ms-transform-origin:     @x @y;
-	-o-transform-origin:      @x @y;
+	-moz-transform-origin: @x @y;
+	-ms-transform-origin: @x @y;
+	-o-transform-origin: @x @y;
 }
-.unselectable {
-  -webkit-user-select: none;  /* Chrome all / Safari all */
-  -moz-user-select: none;     /* Firefox all */
-  -ms-user-select: none;      /* IE 10+ */
-  user-select: none;          /* Likely future */
+.unselectable { // ignore this stuff when highlighting for copy/paste
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
-// browsers likes to color
-*:focus {
-    outline: none;
-}
-// make it big, and give all the children some colors of the wind
+/*-------------------------Attributes---------------------------*/
+
 body, html {
   postition: relative;
   width: 100%;
@@ -43,64 +44,49 @@ body, html {
   letter-spacing: 0.5px;
   overflow-x: hidden;
 }
-i {
-	position: absolute;
-	&.arrow {
-	  border: solid @color5;
-	  border-width: 0 1px 1px 0;
-	  padding: 1px;
-		&.down {
-			top: 65%;
-			left: 50%;
-			.transform-origin(0,0);
-	    .rotate(45deg);
-		}
-		&.up {
-			top: 35%;
-			left: 50%;
-			.transform-origin(0,0);
-	    .rotate(-135deg);
-		}
-	}
-}
-.browse {
-  .device-name {
-    font-size: 4em;
-  }
-}
-// gunna make this pretty later :)
+/*-------------------------Pagination Style---------------------------*/
 .pagination {
-  position: fixed;
-  left: 50%;
-  .translate(-50%,0);
-  bottom: 10px;
-  width: 100%;
+	// 10 px up, 600px or screen width
+	margin-bottom: 10px;
   max-width: 600px;
-  text-align: center;
-  font-size: 1.5em;
+	width: 100%;
+	// bottom center of screen
+	text-align: center;
+	position: fixed;
+  left: 50%;
+  bottom: 0;
+	.translate(-50%,0);
   li {
-		display: inline-block;
+		font-size: 1.8em;
+		// each circle is 40px, with a 3px margin
 		width: 40px;
-    border-radius: 50%;
 		margin: 3px;
-    line-height: 0px;
+		// 1px dark border on light a background
     border: 1px solid @color2;
     background: @color5;
-		a, span {
+		// inline circle elements
+		display: inline-block;
+		border-radius: 50%;
+		line-height: 0px;
+		a { // link text color changes
+			&:hover {
+				color: @color5;
+				.cursor-p();
+			}
+		} // links circular background changes
+		&:hover {
+      background: @color2;
+    }
+		a, span { // page links, current page and prev/next
+			// light font with no underline
 	    color: @color2;
 	    text-decoration: none;
+			// like filling a balloon with air
 	    display: block;
 	    padding-top: 50%;
 	    padding-bottom: 50%;
-			&:hover {
-				color: @color5;
-				cursor: pointer;
-			}
 	  }
-    &:hover {
-      background: @color2;
-    }
-    &.disabled {
+    &.disabled { // if you hover over a disabled circle, overwrite to original colors
       &:hover {
         background: @color5;
 				a, span {
@@ -110,71 +96,87 @@ i {
 				}
       }
     }
-    &.active-page {
+    &.active-page { // current page has a dark background with a light page number
 			background: @color2;
 			span {
-				position: relative;
 				color: @color5;
 			}
     }
-
   }
+	.results-count { // Showing _-_ of _
+		// white, 3px padded backround
+		background: white;
+		padding: 3px;
+		// dark, faded font
+	  color: fade(@color1, 20%);
+		font-size: 2em;
+		// centered atop pagination
+		position: absolute;
+		top: 0;
+		left: 50%;
+		.translate(-50%, -100%);
+	}
 }
-// search results ul, and li items
+/*-------------------------Search Results Style---------------------------*/
 .results {
-  position: fixed;
+	// dead center of screen
+	position: fixed;
   top: 50%;
-  .translate(0,-50%);
   width: 100%;
-  font-size: 2em;
-  line-height: 2em;
-  color: fade(@color1, 20%);
+	.translate(0,-50%);
   li {
+		padding: 10px 0;
+		// clickable
+		.cursor-p();
+		// results are centered on screen
     text-align: center;
-    cursor: pointer;
     height: auto;
     width: 100%;
-    .device-brand {
+		&.results-view {
+			// hover state only applies in results-view
+			&:hover {
+				.device-name {
+					// dark, larger font
+					font-size: 2em;
+					color: @color1;
+					// so the brand text looks to this for positioning
+					position: relative;
+				}
+	      .device-brand {
+					// large and faded font
+	        font-size: 4em;
+					color: fade(@color1, 5%);
+					// centered behind the name
+					z-index: -1;
+	        display: block;
+	        position: absolute;
+	        top: 50%;
+	        left: 50%;
+	        .translate(-50%,-50%);
+					// so it doesn't get in the way of copy/paste
+					.unselectable();
+	      }
+	    }
+		}
+    .device-name {
+			// faded dark font
+		  font-size: 1.5em;
+			line-height: 1.5em;
+		  color: fade(@color1, 20%);
+    }
+		.device-brand {
+			// hide the brand
       display: none;
     }
-    .device-name {
-    }
 		.device-details {
+			// hide the details,
 			display: none;
 		}
-    &.active {
-      position: relative;
-			.device-name {
-				font-size: 2em;
-	      margin: 30px 0;
-	      color: @color1;
-			}
-      .device-brand {
-        .unselectable();
-        z-index: -1;
-        display: block;
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        font-size: 4em;
-        .translate(-50%,-50%);
-        color: fade(@color1, 5%);
-      }
-    }
   }
 }
-.results-count {
-	position: absolute;
-	background: white;
-	padding: 3px;
-	top: 0;
-	left: 50%;
-	.translate(-50%, -200%);
-  color: fade(@color1, 20%);
-	font-size: 1.2em;
-}
-// give the only element on this page something to look at in the mirror
+/*-------------------------Search Box Style---------------------------*/
 .search-box {
+	// 500px or screen width
   max-width: 100%;
   width: 500px;
   &.abs-center {
@@ -183,9 +185,9 @@ i {
     left: 50%;
     .translate(-50%,-50%);
   }
-  &.rel-top {
+  &.fix-top {
     position: fixed;
-    top: 0;
+    top: 2%;
     left: 50%;
     .translate(-50%,0);
     .logo {
@@ -219,15 +221,4 @@ i {
       overflow-x: hidden;
     }
   }
-}
-
-// them teenie tiny phones
-@media only screen and (min-device-width: 320px) and (max-device-width: 480px) {
-
-}
-// tableterino
-@media only screen
-  and (min-device-width: 768px)
-  and (max-device-width: 1024px) {
-
 }

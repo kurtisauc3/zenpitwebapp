@@ -1,7 +1,7 @@
 {% extends 'search/base.html' %}
 {% load static %}
 {% block content %}
-<nav class="search-box rel-top"> <!-- let's be real, it's just a search bar -->
+<nav class="search-box fix-top"> <!-- let's be real, it's just a search bar -->
   <form action="{% url 'results' %}" method="get" accept-charset="utf-8">
     <div class="search-bar">
       <div class="logo"><a href="{% url 'search' %}"><img src="{% static '/images/fono-logo.png' %}" alt="fono logo"/></a></div>
@@ -12,7 +12,7 @@
 <ul class="results">
   <!-- Dad catches the baseball! he then cuts it open and organizes it on the lawn -->
   {% for phone in phones %}
-    <li class="device{% if forloop.first %} active first-item{% endif %}{% if forloop.last %} last-item{% endif %}">
+    <li class="device results-view{% if forloop.first %} first-item{% endif %}{% if forloop.last %} last-item{% endif %}">
       <div class="device-name">{{ phone.DeviceName }}<div class="device-brand">{{ phone.Brand }}</div></div>
       <div class="device-details">wow the technology is {{ phone.technology }}</div>
     </li>
@@ -37,7 +37,7 @@
   {% for i in phones.paginator.page_range %}
     {% if phones.number == i %}
       <!-- let's bring a lawn chair so we know what yard we're in (really?) -->
-      <li class="active-page"><span>{{ i }}<i class="arrow up"></i></span></li>
+      <li class="active-page"><span>{{ i }}</span></li>
     {% elif i > phones.number|add:'-10' and i < phones.number|add:'10' %}
       <!-- looks like the other yards don't have lawn chairs -->
       <li class="pagination-numbers"><a href="?search={{ request.GET.search }}&page={{ i }}">{{ i }}</a></li>
