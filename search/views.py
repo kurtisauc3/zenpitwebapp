@@ -9,6 +9,7 @@ def index(request):
     return render(request, 'search/index.html', {})
 
 def results(request):
+
     # store their search in val
     val = request.GET.get('search')
     # use this beautiful fonoapi to do all the wuurk
@@ -31,7 +32,6 @@ def results(request):
         phones = paginator.page(1)
     except EmptyPage:
         phones = paginator.page(paginator.num_pages)
-
 
     # toss a baseball (loaded with results) to dad, who's standing in search/results.html
     return render(request, 'search/results.html', {'phones': phones})

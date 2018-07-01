@@ -1,7 +1,10 @@
 {% extends 'search/base.html' %}
 {% load static %}
 {% block content %}
-<nav class="search-box abs-center"> <!-- let's be real, it's just a search bar -->
+<!-- home page -->
+<!-- sends results of search to results page -->
+<!-- centered search bar with a logo and input field, nothing more -->
+<nav class="search-box abs-center">
   <form action="{% url 'results' %}" method="get" accept-charset="utf-8">
     <div class="search-bar">
       <div class="logo"><img src="{% static '/images/fono-logo.png' %}" alt="fono logo"/></div>
