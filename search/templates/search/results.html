@@ -20,68 +20,92 @@
       <div class="device-name">{{ phone.DeviceName }}<div class="device-brand">{{ phone.Brand }}</div></div>
       <!-- the device details (which are hidden by default and show when you click a device) -->
       <div class="device-details">
-        {% if phone.technology %}<p>technology: {{ phone.technology }}</p>{% endif %}
-        {% if phone|dict_:'_2g_bands' %}<p>2g bands: {{ phone|dict_:'_2g_bands' }}</p>{% endif %}
-        {% if phone.gprs %}<p>gprs: {{ phone.gprs }}</p>{% endif %}
-        {% if phone.gprs %}<p>edge: {{ phone.gprs }}</p>{% endif %}
-        {% if phone.announced %}<p>announced: {{ phone.announced }}</p>{% endif %}
-        {% if phone.status %}<p>status: {{ phone.status }}</p>{% endif %}
-        {% if phone.dimensions %}<p>dimensions: {{ phone.dimensions }}</p>{% endif %}
-        {% if phone.weight %}<p>weight: {{ phone.weight }}</p>{% endif %}
-        {% if phone.sim %}<p>sim: {{ phone.sim }}</p>{% endif %}
-        {% if phone.type %}<p>display type: {{ phone.type }}</p>{% endif %}
-        {% if phone.size %}<p>size: {{ phone.size }}</p>{% endif %}
-        {% if phone.resolution %}<p>resolution: {{ phone.resolution }}</p>{% endif %}
-        {% if phone.card_slot %}<p>card slot: {{ phone.card_slot }}</p>{% endif %}
-        {% if phone.phonebook %}<p>phonebook: {{ phone.phonebook }}</p>{% endif %}
-        {% if phone.call_records %}<p>call records: {{ phone.call_records }}</p>{% endif %}
-        {% if phone.camera_c %}<p>camera availability: {{ phone.camera_c }}</p>{% endif %}
-        {% if phone.alert_types %}<p>alert types: {{ phone.alert_types }}</p>{% endif %}
-        {% if phone.loudspeaker_ %}<p>loudspeaker: {{ phone.loudspeaker_ }}</p>{% endif %}
-        {% if phone|dict_:'_3_5mm_jack_' %}<p>35mm jack: {{ phone|dict_:'_3_5mm_jack_' }}</p>{% endif %}
-        {% if phone.sound_c %}<p>sound quality: {{ phone.sound_c }}</p>{% endif %}
-        {% if phone.wlan %}<p>wlan: {{ phone.wlan }}</p>{% endif %}
-        {% if phone.bluetooth %}<p>bluetooth: {{ phone.bluetooth }}</p>{% endif %}
-        {% if phone.gps %}<p>gps: {{ phone.gps }}</p>{% endif %}
-        {% if phone.infrared_port %}<p>infrared_port: {{ phone.infrared_port }}</p>{% endif %}
-        {% if phone.radio %}<p>radio: {{ phone.radio }}</p>{% endif %}
-        {% if phone.usb %}<p>usb: {{ phone.usb }}</p>{% endif %}
-        {% if phone.messaging %}<p>messaging: {{ phone.messaging }}</p>{% endif %}
-        {% if phone.clock %}<p>clock: {{ phone.clock }}</p>{% endif %}
-        {% if phone.alarm %}<p>alarm: {{ phone.alarm }}</p>{% endif %}
-        {% if phone.games %}<p>games: {{ phone.games }}</p>{% endif %}
-        {% if phone.languages %}<p>languages: {{ phone.languages }}</p>{% endif %}
-        {% if phone.java %}<p>java: {{ phone.java }}</p>{% endif %}
-        {% if phone.features_c %}<p>additional features: {{ phone.features_c }}</p>{% endif %}
-        {% if phone.battery_c %}<p>battery information: {{ phone.battery_c }}</p>{% endif %}
-        {% if phone.stand_by %}<p>standby time: {{ phone.stand_by }}</p>{% endif %}
-        {% if phone.talk_time %}<p>talk time: {{ phone.talk_time }}</p>{% endif %}
-        {% if phone.colors %}<p>available colors: {{ phone.colors }}</p>{% endif %}
-        {% if phone.sensors %}<p>sensors: {{ phone.sensors }}</p>{% endif %}
-        {% if phone.cpu %}<p>cpu: {{ phone.cpu }}</p>{% endif %}
-        {% if phone.internal %}<p>internal memory + ram: {{ phone.internal }}</p>{% endif %}
-        {% if phone.os %}<p>os: {{ phone.os }}</p>{% endif %}
-        {% if phone.body_c %}<p>body features: {{ phone.body_c }}</p>{% endif %}
-        {% if phone.keyboard %}<p>keyboard: {{ phone.keyboard }}</p>{% endif %}
-        {% if phone.primary_ %}<p>primary camera: {{ phone.primary_ }}</p>{% endif %}
-        {% if phone.video %}<p>video: {{ phone.video }}</p>{% endif %}
-        {% if phone.secondary %}<p>secondary camera: {{ phone.secondary }}</p>{% endif %}
-        {% if phone|dict_:'_2g_bands' %}<p>3g bands: {{ phone|dict_:'_2g_bands' }}</p>{% endif %}
-        {% if phone.speed %}<p>speed: {{ phone.speed }}</p>{% endif %}
-        {% if phone.network_c %}<p>network: {{ phone.network_c }}</p>{% endif %}
-        {% if phone.chipset %}<p>chipset: {{ phone.chipset }}</p>{% endif %}
-        {% if phone.features %}<p>features: {{ phone.features }}</p>{% endif %}
-        {% if phone.music_play %}<p>music_play: {{ phone.music_play }}</p>{% endif %}
-        {% if phone.protection %}<p>protection: {{ phone.protection }}</p>{% endif %}
-        {% if phone.gpu %}<p>gpu: {{ phone.gpu }}</p>{% endif %}
-        {% if phone.multitouch %}<p>multitouch: {{ phone.multitouch }}</p>{% endif %}
-        {% if phone.loudspeaker %}<p>loudspeaker: {{ phone.loudspeaker }}</p>{% endif %}
-        {% if phone.audio_quality %}<p>audio quality: {{ phone.audio_quality }}</p>{% endif %}
-        {% if phone.nfc %}<p>nfc: {{ phone.nfc }}</p>{% endif %}
-        {% if phone.camera %}<p>camera: {{ phone.camera }}</p>{% endif %}
-        {% if phone.display %}<p>display: {{ phone.display }}</p>{% endif %}
-        {% if phone.battery_life %}<p>battery life: {{ phone.battery_life }}</p>{% endif %}
-        {% if phone|dict_:'_4g_bands' %}<p>4g bands: {{ phone|dict_:'_4g_bands' }}</p>{% endif %}
+        <div class="device-main">
+          {% if phone.os %}<p>os: {{ phone.os }}</p>{% endif %}
+          {% if phone.colors %}<p>available colors: {{ phone.colors }}</p>{% endif %}
+        </div>
+        <div class="device-status">
+          {% if phone.announced %}<p>announced: {{ phone.announced }}</p>{% endif %}
+          {% if phone.status %}<p>status: {{ phone.status }}</p>{% endif %}
+        </div>
+        <div class="device-display">
+          {% if phone.size %}<p>size: {{ phone.size }}</p>{% endif %}
+          {% if phone.technology %}<p>technology: {{ phone.technology }}</p>{% endif %}
+          {% if phone.type %}<p>display type: {{ phone.type }}</p>{% endif %}
+          {% if phone.display %}<p>display: {{ phone.display }}</p>{% endif %}
+          {% if phone.dimensions %}<p>dimensions: {{ phone.dimensions }}</p>{% endif %}
+          {% if phone.resolution %}<p>resolution: {{ phone.resolution }}</p>{% endif %}
+          {% if phone.weight %}<p>weight: {{ phone.weight }}</p>{% endif %}
+          {% if phone.body_c %}<p>body features: {{ phone.body_c }}</p>{% endif %}
+          {% if phone.keyboard %}<p>keyboard: {{ phone.keyboard }}</p>{% endif %}
+        </div>
+        <div class="device-camera">
+          {% if phone.camera_c %}<p>camera availability: {{ phone.camera_c }}</p>{% endif %}
+          {% if phone.camera %}<p>camera: {{ phone.camera }}</p>{% endif %}
+          {% if phone.primary_ %}<p>primary camera: {{ phone.primary_ }}</p>{% endif %}
+          {% if phone.secondary %}<p>secondary camera: {{ phone.secondary }}</p>{% endif %}
+        </div>
+        <div class="device-hardware">
+          {% if phone.chipset %}<p>chipset: {{ phone.chipset }}</p>{% endif %}
+          {% if phone.cpu %}<p>cpu: {{ phone.cpu }}</p>{% endif %}
+          {% if phone.gpu %}<p>gpu: {{ phone.gpu }}</p>{% endif %}
+          {% if phone.internal %}<p>internal memory + ram: {{ phone.internal }}</p>{% endif %}
+          {% if phone.speed %}<p>speed: {{ phone.speed }}</p>{% endif %}
+        </div>
+        <div class="device-battery">
+          {% if phone.battery_c %}<p>battery information: {{ phone.battery_c }}</p>{% endif %}
+          {% if phone.battery_life %}<p>battery life: {{ phone.battery_life }}</p>{% endif %}
+        </div>
+        <div class="device-multimedia">
+          {% if phone|dict_:'_3_5mm_jack_' %}<p>35mm jack: {{ phone|dict_:'_3_5mm_jack_' }}</p>{% endif %}
+          {% if phone.loudspeaker_ %}<p>loudspeaker: {{ phone.loudspeaker_ }}</p>{% endif %}
+          {% if phone.loudspeaker %}<p>loudspeaker: {{ phone.loudspeaker }}</p>{% endif %}
+          {% if phone.audio_quality %}<p>audio quality: {{ phone.audio_quality }}</p>{% endif %}
+          {% if phone.sound_c %}<p>sound quality: {{ phone.sound_c }}</p>{% endif %}
+          {% if phone.music_play %}<p>music_play: {{ phone.music_play }}</p>{% endif %}
+          {% if phone.radio %}<p>radio: {{ phone.radio }}</p>{% endif %}
+          {% if phone.usb %}<p>usb: {{ phone.usb }}</p>{% endif %}
+          {% if phone.games %}<p>games: {{ phone.games }}</p>{% endif %}
+          {% if phone.video %}<p>video: {{ phone.video }}</p>{% endif %}
+        </div>
+        <div class="device-cellular">
+          {% if phone.network_c %}<p>network: {{ phone.network_c }}</p>{% endif %}
+          {% if phone|dict_:'_2g_bands' %}<p>2g bands: {{ phone|dict_:'_2g_bands' }}</p>{% endif %}
+          {% if phone|dict_:'_3g_bands' %}<p>3g bands: {{ phone|dict_:'_3g_bands' }}</p>{% endif %}
+          {% if phone|dict_:'_4g_bands' %}<p>4g bands: {{ phone|dict_:'_4g_bands' }}</p>{% endif %}
+          {% if phone.gprs %}<p>gprs: {{ phone.gprs }}</p>{% endif %}
+          {% if phone.gprs %}<p>edge: {{ phone.gprs }}</p>{% endif %}
+        </div>
+        <div class="device-connectivity">
+          {% if phone.nfc %}<p>nfc: {{ phone.nfc }}</p>{% endif %}
+          {% if phone.wlan %}<p>wlan: {{ phone.wlan }}</p>{% endif %}
+          {% if phone.bluetooth %}<p>bluetooth: {{ phone.bluetooth }}</p>{% endif %}
+          {% if phone.gps %}<p>gps: {{ phone.gps }}</p>{% endif %}
+          {% if phone.infrared_port %}<p>infrared_port: {{ phone.infrared_port }}</p>{% endif %}
+          {% if phone.sensors %}<p>sensors: {{ phone.sensors }}</p>{% endif %}
+        </div>
+        <div class="device-standard">
+          {% if phone.messaging %}<p>messaging: {{ phone.messaging }}</p>{% endif %}
+          {% if phone.stand_by %}<p>standby time: {{ phone.stand_by }}</p>{% endif %}
+          {% if phone.talk_time %}<p>talk time: {{ phone.talk_time }}</p>{% endif %}
+          {% if phone.phonebook %}<p>phonebook: {{ phone.phonebook }}</p>{% endif %}
+          {% if phone.call_records %}<p>call records: {{ phone.call_records }}</p>{% endif %}
+          {% if phone.alert_types %}<p>alert types: {{ phone.alert_types }}</p>{% endif %}
+          {% if phone.clock %}<p>clock: {{ phone.clock }}</p>{% endif %}
+          {% if phone.alarm %}<p>alarm: {{ phone.alarm }}</p>{% endif %}
+          {% if phone.multitouch %}<p>multitouch: {{ phone.multitouch }}</p>{% endif %}
+        </div>
+        <div class="device-features">
+          {% if phone.features_c %}<p>additional features: {{ phone.features_c }}</p>{% endif %}
+          {% if phone.features %}<p>features: {{ phone.features }}</p>{% endif %}
+        </div>
+        <div class="device-other">
+          {% if phone.protection %}<p>protection: {{ phone.protection }}</p>{% endif %}
+          {% if phone.languages %}<p>languages: {{ phone.languages }}</p>{% endif %}
+          {% if phone.sim %}<p>sim: {{ phone.sim }}</p>{% endif %}
+          {% if phone.card_slot %}<p>card slot: {{ phone.card_slot }}</p>{% endif %}
+          {% if phone.java %}<p>java: {{ phone.java }}</p>{% endif %}
+        </div>
       </div>
     </li>
   {% empty %}
