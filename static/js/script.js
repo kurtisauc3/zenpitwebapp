@@ -83,6 +83,7 @@ function isMobile() {
 };
 function setupDesktop() {
   // desktop stuff
+  $('.back-to-top').hide();
 }
 function setupMobile() {
   $('.first-item').addClass('active');
