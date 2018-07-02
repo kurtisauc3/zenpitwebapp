@@ -2,9 +2,11 @@
 {% load static %}
 {% load templatetags %}
 {% block content %}
+
 <!-- results page -->
 <!-- top-centered search bar with a smaller logo and input field -->
 <nav class="search-box rel-top">
+  <header class="logo"><a href="{% url 'search' %}"><img src="{% static '/images/lookup.png' %}" alt="lookup logo"></a></header>
   <form action="{% url 'results' %}" method="get" accept-charset="utf-8">
     <div class="search-bar">
       <input required autocomplete='off' name='search' type='text' placeholder="search for a phone" maxlength="30">
@@ -12,63 +14,72 @@
   </form>
 </nav>
 <!-- shows first 10 results in a list, displaying only the Device Name (and Brand on hover) -->
-<!-- adds first-item for mobile display (since hover isn't really a thing there) -->
+<!-- upon clicking a Device Name, the Device Details expands (using javascript) via the toggle-hide class -->
 <ul class="results">
+  <!-- each parameter is checked and omitted if the result is null, excluding device name and colors -->
   {% for phone in phones %}
 
-    <li class="device results-view{% if forloop.first %} first-item{% endif %}">
+    <li class="device results-view">
       <div class="device-name" data-text-swap="Back To Results">{{ phone.DeviceName }}</div>
       <!-- the device details (which are hidden by default and show when you click a device) -->
       <div class="device-details">
+        <!-- first on mobile, left on desktop -->
         <div class="left-space">
-          <table class="device-phone">
-            <tr>{% if phone.DeviceName and phone.Brand %}<td class="label">{{ phone.Brand }}</td><td class="payload">{{ phone.DeviceName }}</td>{% endif %}</tr>
-          </table>
-          <table class="device-launch">
-            {% if phone.announced or phone.status %}
-            <tr><th colspan="2">Launch</th></tr>
-            <tr>{% if phone.announced %}<td class="label">Announced</td><td class="payload">{{ phone.announced }}</td>{% endif %}</tr>
-            <tr>{% if phone.status %}<td class="label">Status</td><td class="payload">{{ phone.status }}</td>{% endif %}</tr>
-            {% endif %}
-          </table>
-          <table class="device-body">
-            {% if phone.body_c or phone.dimensions or phone.weight or phone.sim or phone.colors %}
-            <tr><th colspan="2">Body</th></tr>
-            <tr>{% if phone.body_c %}<td class="label">Body Features</td><td class="payload">{{ phone.body_c }}</td>{% endif %}</tr>
-            <tr>{% if phone.dimensions %}<td class="label">Dimensions</td><td class="payload">{{ phone.dimensions }}</td>{% endif %}</tr>
-            <tr>{% if phone.weight %}<td class="label">Weight</td><td class="payload">{{ phone.weight }}</td>{% endif %}</tr>
-            <tr>{% if phone.sim %}<td class="label">SIM</td><td class="payload">{{ phone.sim }}</td>{% endif %}</tr>
-            <tr>{% if phone.colors %}<td class="label">Colors</td><td class="payload">{{ phone.colors }}</td>{% endif %}</tr>
-            {% endif %}
-          </table>
-          <table class="device-display">
-            {% if phone.type or phone.size or phone.resolution or phone.multitouch %}
-            <tr><th colspan="2">Display</th></tr>
-            <tr>{% if phone.type %}<td class="label">Type</td><td class="payload">{{ phone.type }}</td>{% endif %}</tr>
-            <tr>{% if phone.size %}<td class="label">Size</td><td class="payload">{{ phone.size }}</td>{% endif %}</tr>
-            <tr>{% if phone.resolution %}<td class="label">Resolution</td><td class="payload">{{ phone.resolution }}</td>{% endif %}</tr>
-            <tr>{% if phone.multitouch %}<td class="label">Multitouch</td><td class="payload">{{ phone.multitouch }}</td>{% endif %}</tr>
-            {% endif %}
-          </table>
-          <table class="device-platform">
-            {% if phone.os or phone.chipset or phone.cpu or phone.gpu %}
-            <tr><th colspan="2">Platform</th></tr>
-            <tr>{% if phone.os %}<td class="label">OS</td><td class="payload">{{ phone.os }}</td>{% endif %}</tr>
-            <tr>{% if phone.chipset %}<td class="label">Chipset</td><td class="payload">{{ phone.chipset }}</td>{% endif %}</tr>
-            <tr>{% if phone.cpu %}<td class="label">CPU</td><td class="payload">{{ phone.cpu }}</td>{% endif %}</tr>
-            <tr>{% if phone.gpu %}<td class="label">GPU</td><td class="payload">{{ phone.gpu }}</td>{% endif %}</tr>
-            {% endif %}
-          </table>
+          <section>
+            <table class="device-phone">
+              <tr>{% if phone.DeviceName and phone.Brand %}<td class="label">{{ phone.Brand }}</td><td class="payload">{{ phone.DeviceName }}</td>{% endif %}</tr>
+            </table>
+          </section>
+          <section>
+            <table class="device-launch">
+              {% if phone.announced or phone.status %}
+              <tr><th colspan="2">Launch <span class="up" data-text-swap="&#8964;">&#8963;</th></tr>
+              <tr>{% if phone.announced %}<td class="label">Announced</td><td class="payload">{{ phone.announced }}</td>{% endif %}</tr>
+              <tr>{% if phone.status %}<td class="label">Status</td><td class="payload">{{ phone.status }}</td>{% endif %}</tr>
+              {% endif %}
+            </table>
+          </section>
+          <section>
+            <table class="device-body">
+              {% if phone.body_c or phone.dimensions or phone.weight or phone.sim %}
+              <tr><th colspan="2">Body <span class="up" data-text-swap="&#8964;">&#8963;</th></tr>
+              <tr>{% if phone.body_c %}<td class="label">Body Features</td><td class="payload">{{ phone.body_c }}</td>{% endif %}</tr>
+              <tr>{% if phone.dimensions %}<td class="label">Dimensions</td><td class="payload">{{ phone.dimensions }}</td>{% endif %}</tr>
+              <tr>{% if phone.weight %}<td class="label">Weight</td><td class="payload">{{ phone.weight }}</td>{% endif %}</tr>
+              <tr>{% if phone.sim %}<td class="label">SIM</td><td class="payload">{{ phone.sim }}</td>{% endif %}</tr>
+              {% endif %}
+            </table>
+          </section>
+          <section>
+            <table class="device-display">
+              {% if phone.type or phone.size or phone.resolution or phone.multitouch %}
+              <tr><th colspan="2">Display <span class="up" data-text-swap="&#8964;">&#8963;</th></tr>
+              <tr>{% if phone.type %}<td class="label">Type</td><td class="payload">{{ phone.type }}</td>{% endif %}</tr>
+              <tr>{% if phone.size %}<td class="label">Size</td><td class="payload">{{ phone.size }}</td>{% endif %}</tr>
+              <tr>{% if phone.resolution %}<td class="label">Resolution</td><td class="payload">{{ phone.resolution }}</td>{% endif %}</tr>
+              <tr>{% if phone.multitouch %}<td class="label">Multitouch</td><td class="payload">{{ phone.multitouch }}</td>{% endif %}</tr>
+              {% endif %}
+            </table>
+          </section>
+          <section>
+            <table class="device-platform">
+              {% if phone.os or phone.chipset or phone.cpu or phone.gpu %}
+              <tr><th colspan="2">Platform <span class="up" data-text-swap="&#8964;">&#8963;</th></tr>
+              <tr>{% if phone.os %}<td class="label">OS</td><td class="payload">{{ phone.os }}</td>{% endif %}</tr>
+              <tr>{% if phone.chipset %}<td class="label">Chipset</td><td class="payload">{{ phone.chipset }}</td>{% endif %}</tr>
+              <tr>{% if phone.cpu %}<td class="label">CPU</td><td class="payload">{{ phone.cpu }}</td>{% endif %}</tr>
+              <tr>{% if phone.gpu %}<td class="label">GPU</td><td class="payload">{{ phone.gpu }}</td>{% endif %}</tr>
+              {% endif %}
+            </table>
+          </section>
         </div>
-
+        <!-- second on mobile, middle on desktop, most sections are hidden by default -->
         <div class="middle-space">
           <div class="device-name-active">{{ phone.DeviceName }}<div class="device-brand-active">{{ phone.Brand }}</div></div>
-          <div class="device-extra-details">
-            <div class="toggle features">
+            <section class="toggle-hide">
               <table class="device-features">
                 {% if phone.sensors or phone.features_c or phone.messaging or phone. or phonebook or phone.call_records or phone.clockphone.alarm %}
-                <div class="extra-button">Features <span>&#8964;<span></div>
-                <tr><th colspan="2">Features</th></tr>
+                <tr><th colspan="2">Features <span class="down" data-text-swap="&#8963;">&#8964;</th></tr>
                 <tr>{% if phone.sensors %}<td class="label">Sensors</td><td class="payload">{{ phone.sensors }}</td>{% endif %}</tr>
                 <tr>{% if phone.features_c %}<td class="label">Additional Features</td><td class="payload">{{ phone.features_c }}</td>{% endif %}</tr>
                 <tr>{% if phone.messaging %}<td class="label">Messaging</td><td class="payload">{{ phone.messaging }}</td>{% endif %}</tr>
@@ -78,12 +89,11 @@
                 <tr>{% if phone.alarm %}<td class="label">Alarm</td><td class="payload">{{ phone.alarm }}</td>{% endif %}</tr>
                 {% endif %}
               </table>
-            </div>
-            <div class="toggle wireless">
+            </section>
+            <section class="toggle-hide">
               {% if phone.nfc or phone.wlan or phone.bluetooth or phone.gps or phone.infrared %}
-              <div class="extra-button">Wireless <span>&#8964;<span></div>
               <table class="device-wireless">
-                <tr><th colspan="2">Wireless</th></tr>
+                <tr><th colspan="2">Wireless <span class="down" data-text-swap="&#8963;">&#8964;</th></tr>
                 <tr>{% if phone.nfc %}<td class="label">NFC</td><td class="payload">{{ phone.nfc }}</td>{% endif %}</tr>
                 <tr>{% if phone.wlan %}<td class="label">WLAN</td><td class="payload">{{ phone.wlan }}</td>{% endif %}</tr>
                 <tr>{% if phone.bluetooth %}<td class="label">Bluetooth</td><td class="payload">{{ phone.bluetooth }}</td>{% endif %}</tr>
@@ -91,12 +101,11 @@
                 <tr>{% if phone.infrared_port %}<td class="label">Infrared Port</td><td class="payload">{{ phone.infrared_port }}</td>{% endif %}</tr>
                 {% endif %}
               </table>
-            </div>
-            <div class="toggle cellular">
+            </section>
+            <section class="toggle-hide">
               {% if phone.network_c or phone|dict_:'_2g_bands' or phone|dict_:'_3g_bands' or phone|dict_:'_4g_bands' or phone.gprs %}
-              <div class="extra-button">Cellular <span>&#8964;<span></div>
               <table class="device-cellular">
-                <tr><th colspan="2">Cellular</th></tr>
+                <tr><th colspan="2">Cellular <span class="down" data-text-swap="&#8963;">&#8964;</th></tr>
                 <tr>{% if phone.technology %}<td class="label">Technology</td><td class="payload">{{ phone.technology }}</td>{% endif %}</tr>
                 <tr>{% if phone.network_c %}<td class="label">Network</td><td class="payload">{{ phone.network_c }}</td>{% endif %}</tr>
                 <tr>{% if phone|dict_:'_2g_bands' %}<td class="label">2G</td><td class="payload">{{ phone|dict_:'_2g_bands' }}</td>{% endif %}</tr>
@@ -105,12 +114,11 @@
                 <tr>{% if phone.gprs %}<td class="label">GPRS</td><td class="payload">{{ phone.gprs }}</td>{% endif %}</tr>
                 {% endif %}
               </table>
-            </div>
-            <div class="toggle other">
+            </section>
+            <section class="toggle-hide">
               {% if phone.edge or phone.protection or phone.languages or phone.display or phone.music or phone.radio or phone.usb or phone.games or phone.video or phone.speed or phone.keyboard or phone.java %}
-              <div class="extra-button">Other <span>&#8964;<span></div>
               <table class="device-other">
-                <tr><th colspan="2">Other</th></tr>
+                <tr><th colspan="2">Other <span class="down" data-text-swap="&#8963;">&#8964;</th></tr>
                 <tr>{% if phone.edge %}<td class="label">Edge</td><td class="payload">{{ phone.edge }}</td>{% endif %}</tr>
                 <tr>{% if phone.protection %}<td class="label">Protection</td><td class="payload">{{ phone.protection }}</td>{% endif %}</tr>
                 <tr>{% if phone.languages %}<td class="label">Languages</td><td class="payload">{{ phone.languages }}</td>{% endif %}</tr>
@@ -125,48 +133,60 @@
                 <tr>{% if phone.java %}<td class="label">Java</td><td class="payload">{{ phone.java }}</td>{% endif %}</tr>
                 {% endif %}
               </table>
-            </div>
+            </section>
           </div>
-        </div>
-
-        <div class="right-space">
-          <table class="device-camera">
-            {% if phone.camera or phone.primary_ or phone.secondary or phone.camera_c or phone.features %}
-            <tr><th colspan="2">Camera</th></tr>
-            <tr>{% if phone.camera %}<td class="label">Camera</td><td class="payload">{{ phone.camera }}</td>{% endif %}</tr>
-            <tr>{% if phone.primary_ %}<td class="label">Primary</td><td class="payload">{{ phone.primary_ }}</td>{% endif %}</tr>
-            <tr>{% if phone.secondary %}<td class="label">Secondary</td><td class="payload">{{ phone.secondary }}</td>{% endif %}</tr>
-            <tr>{% if phone.camera_c %}<td class="label">Availability</td><td class="payload">{{ phone.camera_c }}</td>{% endif %}</tr>
-            <tr>{% if phone.features %}<td class="label">Features</td><td class="payload">{{ phone.features }}</td>{% endif %}</tr>
-            {% endif %}
-          </table>
-          <table class="device-sound">
-            {% if phone|dict_:'_3_5mm_jack_' or phone.loudspeaker_ or phone.loudspeaker or phone.audio_quality or phone.sound_c or phone.alert_types %}
-            <tr><th colspan="2">Sound</th></tr>
-            <tr>{% if phone|dict_:'_3_5mm_jack_' %}<td class="label">35mm Jack</td><td class="payload">{{ phone|dict_:'_3_5mm_jack_' }}</td>{% endif %}</tr>
-            <tr>{% if phone.loudspeaker_ %}<td class="label">Loudspeaker</td><td class="payload">{{ phone.loudspeaker_ }}</td>{% endif %}</tr>
-            <tr>{% if phone.loudspeaker %}<td class="label">Details</td><td class="payload">{{ phone.loudspeaker }}</td>{% endif %}</tr>
-            <tr>{% if phone.audio_quality %}<td class="label">Audio Quality</td><td class="payload">{{ phone.audio_quality }}</td>{% endif %}</tr>
-            <tr>{% if phone.sound_c %}<td class="label">Sound Quality</td><td class="payload">{{ phone.sound_c }}</td>{% endif %}</tr>
-            <tr>{% if phone.alert_types %}<td class="label">Alert Types</td><td class="payload">{{ phone.alert_types }}</td>{% endif %}</tr>
-            {% endif %}
-          </table>
-          <table class="device-memory">
-            {% if phone.card_slot or phone.internal %}
-            <tr><th colspan="2">Memory</th></tr>
-            <tr>{% if phone.card_slot %}<td class="label">Card Slot</td><td class="payload">{{ phone.card_slot }}</td>{% endif %}</tr>
-            <tr>{% if phone.internal %}<td class="label">Internal Memory + RAM</td><td class="payload">{{ phone.internal }}</td>{% endif %}</tr>
-            {% endif %}
-          </table>
-          <table class="device-battery">
-            {% if phone.battery_c or phone.batter_life or phone.stand_by or phone.talk_time  %}
-            <tr><th colspan="2">Battery</th></tr>
-            <tr>{% if phone.battery_c %}<td class="label">Battery Information</td><td class="payload">{{ phone.battery_c }}</td>{% endif %}</tr>
-            <tr>{% if phone.battery_life %}<td class="label">Battery Life</td><td class="payload">{{ phone.battery_life }}</td>{% endif %}</tr>
-            <tr>{% if phone.stand_by %}<td class="label">Standby Time</td><td class="payload">{{ phone.stand_by }}</td>{% endif %}</tr>
-            <tr>{% if phone.talk_time %}<td class="label">Talk Time</td><td class="payload">{{ phone.talk_time }}</td>{% endif %}</tr>
-            {% endif %}
-          </table>
+          <!-- third on mobile, right on desktop -->
+          <div class="right-space">
+            <section>
+              <table class="device-multimedia">
+                <tr><td class="label">Colors</td><td class="payload">{% if phone.colors %}{{ phone.colors }}{% else %}N/A{% endif %}</td></tr>
+              </table>
+            </section>
+            <section>
+              <table class="device-camera">
+                {% if phone.camera or phone.primary_ or phone.secondary or phone.camera_c or phone.features %}
+                <tr><th colspan="2">Camera <span class="up" data-text-swap="&#8964;">&#8963;</th></tr>
+                <tr>{% if phone.camera %}<td class="label">Camera</td><td class="payload">{{ phone.camera }}</td>{% endif %}</tr>
+                <tr>{% if phone.primary_ %}<td class="label">Primary</td><td class="payload">{{ phone.primary_ }}</td>{% endif %}</tr>
+                <tr>{% if phone.secondary %}<td class="label">Secondary</td><td class="payload">{{ phone.secondary }}</td>{% endif %}</tr>
+                <tr>{% if phone.camera_c %}<td class="label">Availability</td><td class="payload">{{ phone.camera_c }}</td>{% endif %}</tr>
+                <tr>{% if phone.features %}<td class="label">Features</td><td class="payload">{{ phone.features }}</td>{% endif %}</tr>
+                {% endif %}
+              </table>
+            </section>
+          <section>
+            <table class="device-sound">
+              {% if phone|dict_:'_3_5mm_jack_' or phone.loudspeaker_ or phone.loudspeaker or phone.audio_quality or phone.sound_c or phone.alert_types %}
+              <tr><th colspan="2">Sound <span class="up" data-text-swap="&#8964;">&#8963;</th></tr>
+              <tr>{% if phone|dict_:'_3_5mm_jack_' %}<td class="label">35mm Jack</td><td class="payload">{{ phone|dict_:'_3_5mm_jack_' }}</td>{% endif %}</tr>
+              <tr>{% if phone.loudspeaker_ %}<td class="label">Loudspeaker</td><td class="payload">{{ phone.loudspeaker_ }}</td>{% endif %}</tr>
+              <tr>{% if phone.loudspeaker %}<td class="label">Details</td><td class="payload">{{ phone.loudspeaker }}</td>{% endif %}</tr>
+              <tr>{% if phone.audio_quality %}<td class="label">Audio Quality</td><td class="payload">{{ phone.audio_quality }}</td>{% endif %}</tr>
+              <tr>{% if phone.sound_c %}<td class="label">Sound Quality</td><td class="payload">{{ phone.sound_c }}</td>{% endif %}</tr>
+              <tr>{% if phone.alert_types %}<td class="label">Alert Types</td><td class="payload">{{ phone.alert_types }}</td>{% endif %}</tr>
+              {% endif %}
+            </table>
+          </section>
+          <section>
+            <table class="device-memory">
+              {% if phone.card_slot or phone.internal %}
+              <tr><th colspan="2">Memory <span class="up" data-text-swap="&#8964;">&#8963;</th></tr>
+              <tr>{% if phone.card_slot %}<td class="label">Card Slot</td><td class="payload">{{ phone.card_slot }}</td>{% endif %}</tr>
+              <tr>{% if phone.internal %}<td class="label">Internal Memory + RAM</td><td class="payload">{{ phone.internal }}</td>{% endif %}</tr>
+              {% endif %}
+            </table>
+          </section>
+          <section>
+            <table class="device-battery">
+              {% if phone.battery_c or phone.batter_life or phone.stand_by or phone.talk_time  %}
+              <tr><th colspan="2">Battery <span class="up" data-text-swap="&#8964;">&#8963;</th></tr>
+              <tr>{% if phone.battery_c %}<td class="label">Battery Information</td><td class="payload">{{ phone.battery_c }}</td>{% endif %}</tr>
+              <tr>{% if phone.battery_life %}<td class="label">Battery Life</td><td class="payload">{{ phone.battery_life }}</td>{% endif %}</tr>
+              <tr>{% if phone.stand_by %}<td class="label">Standby Time</td><td class="payload">{{ phone.stand_by }}</td>{% endif %}</tr>
+              <tr>{% if phone.talk_time %}<td class="label">Talk Time</td><td class="payload">{{ phone.talk_time }}</td>{% endif %}</tr>
+              {% endif %}
+            </table>
+          </section>
           <div class="back-to-top">Back To Top</div>
         </div>
       </div>
@@ -179,34 +199,35 @@
   {% endfor %}
 </ul>
 
-<!-- Holy cow there are more than 10 phones inside this baseball, lets use the neighbors lawn -->
 {% if phones.has_other_pages %}
-
+<!-- Holy cow there are more than 10 phones, let's draw up some pagination -->
 <ul class="pagination">
   <div id="pagination-anim">
   {% if phones.has_previous %}
-    <!-- i think that last lawn was nicer -->
+    <!-- previous button -->
     <li class="pagination-prev"><a href="?search={{ request.GET.search }}&page={{ phones.previous_page_number }}">&laquo;</a></li>
   {% else %}
-    <!-- we're up against a wall here -->
+    <!-- previous button disabled -->
     <li class="disabled pagination-prev"><span>&laquo;</span></li>
   {% endif %}
   {% for i in phones.paginator.page_range %}
     {% if phones.number == i %}
-      <!-- let's bring a lawn chair so we know what yard we're in (really?) -->
+      <!-- active, or current page -->
       <li class="active-page"><span data-text-swap="&#x2193;">{{ i }}</span></li>
     {% elif i > phones.number|add:'-10' and i < phones.number|add:'10' %}
-      <!-- looks like the other yards don't have lawn chairs -->
+      <!-- for showing the rest of the pages, if we want to only show a couple page links,
+      change the range (currently shows 10 pages away from current) -->
       <li class="pagination-numbers"><a href="?search={{ request.GET.search }}&page={{ i }}">{{ i }}</a></li>
     {% endif %}
   {% endfor %}
   {% if phones.has_next %}
-    <!-- let's find one with a pool -->
+    <!-- next button -->
     <li class="pagination-next"><a href="?search={{ request.GET.search }}&page={{ phones.next_page_number }}">&raquo;</a></li>
   {% else %}
-    <!-- we hit the costco -->
+    <!-- next button disabled-->
     <li class="disabled pagination-next"><span>&raquo;</span></li>
   {% endif %}
+  <!-- shows the results count -->
   <div class="results-count">Showing {{ phones.start_index }}-{{ phones.end_index }} of {{ phones.paginator.count }}</div>
 </div>
 </ul>

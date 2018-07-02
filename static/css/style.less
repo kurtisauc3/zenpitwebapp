@@ -1,19 +1,27 @@
 /*-------------------------site variables---------------------------*/
-@color1: #323a45;
-@color2: #3f6184;
-@color3: #778899;
-@color4: #5faeb6;
-@color5: #f6f7f9;
+@color1: #323a45; // dark dark blue
+@color2: #3f6184; // dark grey blue
+@color3: #778899; // turqoise blue
+@color4: #5faeb6; // pale blue
+@color5: #f6f7f9; // basically white
 /*-------------------------site mixins---------------------------*/
+.animation (@duration: 300ms, @delay: 0) {
+	-webkit-animation-duration: @duration;
+	-moz-animation-duration: @duration;
+	-ms-animation-duration: @duration;
+	-o-animation-duration: @duration;
+	-webkit-animation-delay: @delay;
+	-moz-animation-delay: @delay;
+	-ms-animation-delay: @delay;
+	-o-animation-delay: @delay;
+}
 .box-shadow (@string) {
 	-webkit-box-shadow: @string;
 	-moz-box-shadow:    @string;
 	box-shadow:         @string;
 }
-.cursor-p {
+.light-hover { // hover mixin with a pleasant white outline, faded white bg and bright text
 	cursor: pointer;
-}
-.light-hover {
 	color: @color5;
 	border: 2px solid fade(@color5, 80%);
 	background: fade(@color5, 20%);
@@ -44,27 +52,35 @@
 }
 /*-------------------------Attributes---------------------------*/
 
+// gradient background with an option for a big ol image, variety :)
 body, html {
   postition: relative;
   width: 100%;
   height: 100%;
   font-family: "Open Sans";
-  font-size: 62.5%;
+  font-size: 62.5%; // better for em scaling
   font-weight: bold;
   letter-spacing: 0.5px;
   overflow-x: hidden;
 	background: linear-gradient(@color4,@color3);
 	// background-image: url('../images/bg-image.jpg');
-	background-size: cover;
+	// background-size: cover;
 }
-.hide-for-now {
-	display: none;
+/*-------------------------Logo Style---------------------------*/
+.logo {
+	// centered and a third of the width of the search bar
+	width: 30%;
+	margin: 10px auto;
+	img {
+		max-width: 100%;
+		max-height: 100%;
+	}
 }
 /*-------------------------Pagination Style---------------------------*/
 .pagination {
-	// 10 px up, 600px or screen width
+	// 10 px up, 500px or screen width
 	margin-bottom: 10px;
-  max-width: 600px;
+  max-width: 500px;
 	width: 100%;
 	// bottom center of screen
 	text-align: center;
@@ -87,7 +103,7 @@ body, html {
 		a { // link text color changes
 			&:hover {
 				color: @color5;
-				.cursor-p();
+				cursor: pointer;
 			}
 		} // links circular background changes
 		&:hover {
@@ -105,11 +121,6 @@ body, html {
     &.disabled { // if you hover over a disabled circle, overwrite to original colors
       &:hover {
         background: none;
-				a, span {
-					&:hover {
-
-					}
-				}
       }
     }
     &.active-page { // current page has a dark background with a light page number
@@ -132,6 +143,7 @@ body, html {
 }
 /*-------------------------Search Results Style---------------------------*/
 .results {
+	// 100% up to 1600px, centered and a bottom margin (for pagination buttons)
 	margin: 0 auto 125px auto;
 	max-width: 1600px;
   width: 100%;
@@ -150,8 +162,6 @@ body, html {
 	}
   li {
 		margin: 10px auto;
-		// clickable
-		.cursor-p();
 		// results are centered on screen
     text-align: center;
     height: auto;
@@ -166,23 +176,7 @@ body, html {
 					// light, larger font
 					font-size: 2.5em;
 					.light-hover();
-					// so the brand text looks to this for positioning
-					position: relative;
 				}
-	      .device-brand {
-					// large and faded font
-	        font-size: 4em;
-					color: fade(@color1, 5%);
-					// centered behind the name
-					z-index: -1;
-	        display: block;
-	        position: absolute;
-	        top: 50%;
-	        left: 50%;
-	        .translate(-50%,-50%);
-					// so it doesn't get in the way of copy/paste
-					.unselectable();
-	      }
 	    }
 		}
     .device-name {
@@ -204,66 +198,69 @@ body, html {
 			// hide the details,
 			display: none;
 			&.active-flex {
+				// create multiple columns but wrap cuz flexbox
 				display: flex;
 				flex-wrap: wrap;
 				justify-content: space-between;
+				// fade in faster
+				.animation(200ms);
+				td {
+					// fade in fast
+					.animation(400ms, 0);
+				}
+				section {
+					&.toggle-hide {
+						td {
+							// toggled to hide details
+							display: none;
+						}
+					}
+				}
 				.middle-space {
+					// vertically centered middle column
 					display: flex;
 					flex-direction: column;
 					justify-content: center;
 					align-items: center;
 					flex-grow: 1;
-					.device-extra-details {
+					section {
+						// centered middle table
 						width: 90%;
-						table {
+						table, tr {
+							margin: 5px 0;
 							width: 100%;
-						}
-						.toggle {
-							display: inline-block;
-							justify-content: space-around;
-							width: 49%;
-							table {
-								display: none;
-							}
-							.extra-button {
-								position: relative;
-								width: 100%;
-								padding: 10px;
-								font-size: 2em;
-
-								color: @color5;
-								border: 2px solid fade(@color5, 50%);
-								&:hover {
-									.light-hover();
-								}
-								span {
-									position: absolute;
-									font-size: 1.8em;
-									top: 0;
-									right: 10%;
-									.translate(0,-20%);
-								}
-							}
 						}
 					}
 				}
+				.left-space, .right-space {
+					table, tr {
+						width: 100%;
+					}
+				}
 				.device-name-active {
-					position: relative;
+					// big, bright font
 					font-size: 4em;
 					color: fade(@color5, 80%);
+					// in the middle
+					position: relative;
 					padding: 10px 0;
 					margin: 50px 0;
 					.device-brand-active {
+						//faded and large backdrop font
 						color: fade(@color5, 20%);
 						font-size: 4em;
+						// centered on the name
 						position: absolute;
 						display: block;
 						top: 50%;
 						left: 50%;
 						.translate(-50%,-50%);
+						// doesn't interfere with highlights
+						.unselectable();
 					}
 				}
 				.back-to-top {
+					// light, padded, centered button
 					font-size: 1.8em;
 					color: @color5;
 					padding: 10px;
@@ -271,33 +268,62 @@ body, html {
 					width: 100%;
 					border: 1px solid fade(@color5, 50%);
 					&:hover {
+						// with a light hover effect
 						.light-hover();
 					}
 				}
 			}
 			table {
+				// dark faded background with a bright font
 				color: fade(@color5, 80%);
 				background: fade(@color1, 50%);
+				// vertically spaced from other tables
 				margin: 15px 0;
-				tr {
-
+				tr { // rows are as big as they can be
 					width: 100%;
+					td {
+						line-height: 1.5em;
+					}
 					td, th {
+						// soft, white border
 						padding: 10px;
 						border: 1px solid fade(@color5, 30%);
 					}
 					th {
+						// large section titles aligned left
 						text-align: left;
 						font-size: 2em;
-
+						position: relative;
+						&:hover {
+							// clickable
+							cursor: pointer;
+						}
+						span { // the little arrow
+							font-size: 1.8em;
+							// center right of the header
+							position: absolute;
+							.unselectable();
+							&.down {
+								top: 0;
+								right: 5%;
+								.translate(0,-20%);
+							}
+							&.up {
+								bottom: 0;
+								right: 5%;
+								.translate(0,20%);
+							}
+						}
 					}
 					.label {
 						font-size: 1.5em;
+						// static cell size, aligned right
 						width: 100px;
 						text-align: right;
 					}
 					.payload {
 						font-size: 1.8em;
+						// double the label size
 						width: 200px;
 					}
 				}
@@ -320,31 +346,52 @@ body, html {
     position: relative;
 		margin: 2% auto 0 auto;
   }
-  .search-bar {
-    position: relative;
+  .search-bar, .browse-button {
+		// 100% up to 500px
     font-size: 2.5em;
     max-width: 100%;
     width: 500px;
-    input {
+    button, input {
+			// bright, centered text
       color: @color5;
-      width: 100%; // fill the tank
-      height: 50px;
+			background: fade(@color2, 20%);
       text-align: center;
-      background: fade(@color2, 20%); // soft, soothing backgrounds
-      border-radius: 2px;
+			// soft, rounded light border
       border: 2px solid fade(@color5, 50%);
+      border-radius: 2px;
+			// 50px high and max width
+			width: 100%;
+      height: 50px;
+			// text doesn't bleed out of the edges
       padding: 0 20px;
       overflow-x: hidden;
-			z-index: 1;
+			// cool shadow
 			.box-shadow(0 2px 2px 0 rgba(0,0,0,0.16));
 			&:focus {
+				// bright white border
 				outline: none;
 				border: 2px solid fade(@color5, 80%);
 			}
 			&::placeholder {
+				// faded italic placeholder
 				font-style: italic;
 				color: fade(@color5, 50%);
 			}
     }
   }
+	.browse-button {
+		// 10px below the search bar
+		margin-top: 10px;
+		&:hover {
+			// faded white bg with bright text
+			color: @color5;
+			background: fade(@color5, 20%);
+		}
+		button {
+			// bright white text
+			color: fade(@color5, 80%);
+			// clickable
+			cursor: pointer;
+		}
+	}
 }

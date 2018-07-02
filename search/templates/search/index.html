@@ -2,13 +2,19 @@
 {% load static %}
 {% block content %}
 <!-- home page -->
-<!-- sends results of search to results page -->
-<!-- centered search bar with a logo and input field, nothing more -->
+<!-- sends results of search (or browse latest) to results page -->
+<!-- centered and input field and browse button with a logo -->
 <nav class="search-box flex-center">
+  <header class="logo"><a href="{% url 'search' %}"><img src="{% static '/images/lookup.png' %}" alt="lookup logo"></a></header>
   <form action="{% url 'results' %}" method="get" accept-charset="utf-8">
     <div class="search-bar">
-      <input required autocomplete='off' name='search' type='text' placeholder="search for a phone" maxlength="30" autofocus>
+      <input autocomplete='off' name='search' type='text' placeholder="search for a phone" maxlength="30" autofocus>
     </div>
   </form>
+  <a href="{% url 'browse' %}">
+    <div class="browse-button">
+      <button name='browse' type='submit' value="latest">Browse</button>
+    </div>
+  </a>
 </nav>
 {% endblock %}

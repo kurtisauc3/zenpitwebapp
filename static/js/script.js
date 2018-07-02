@@ -31,9 +31,9 @@ $(document).ready(function() {
   $('.device-name').click(function() {
     toggleDetails($(this));
   });
-  // brings up the extra details
-  $('.extra-button').click(function() {
-    showExtra($(this));
+  // toggle the section details
+  $('th').click(function() {
+    toggleSection($(this));
   });
   // brings up the other page numbers when in mobile
   $('.active-page').click(function() {
@@ -57,18 +57,26 @@ function swapText(el) {
 }
 /*----------hides all elements but the one clicked, then shows it's details-----------*/
 function toggleDetails(el) {
+  // hide/show the button and details
   device = el.closest('.device');
-  $('.pagination').toggle();
+  details = device.children('.device-details');
   device.toggleClass('results-view');
+  details.toggleClass('active-flex').animateCss('fadeIn');
+  // of only the one clicked
   $('.device').not(device).toggle();
-  device.children('.device-details').toggleClass('active-flex');
+  // hide pagination buttons (optional)
+  $('.pagination').toggle();
+  // and toggle the device text with 'back to results'
   swapText(el);
 }
-/*----------hides all elements but the one clicked, then shows it's details-----------*/
-function showExtra(el) {
-  wrapper = el.closest('.toggle');
-  wrapper.toggleClass('toggle');
-  el.remove();
+/*----------toggles information for the sections-----------*/
+function toggleSection(el) {
+    arrow = el.children('span');
+    section = el.closest('section');
+    section.toggleClass('toggle-hide').children('td');
+    section.find('td').animateCss('fadeIn');
+    arrow.toggleClass('down up');
+    swapText(arrow);
 }
 /*----------toggle elements, back button, and animate the wrapper-----------*/
 function togglePaginationNumbers() {
@@ -86,11 +94,9 @@ function setupDesktop() {
   $('.back-to-top').hide();
 }
 function setupMobile() {
-  $('.first-item').addClass('active');
   $('.pagination-numbers').hide();
   $('.active-page').addClass('cursor-p');
 }
-
 /*----------easy callback on animation complete for animate.css-----------*/
 /*----------credit: https://daneden.github.io/animate.css/-----------*/
 $.fn.extend({
