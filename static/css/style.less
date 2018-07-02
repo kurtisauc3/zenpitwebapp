@@ -5,9 +5,18 @@
 @color4: #5faeb6;
 @color5: #f6f7f9;
 /*-------------------------site mixins---------------------------*/
-
+.box-shadow (@string) {
+	-webkit-box-shadow: @string;
+	-moz-box-shadow:    @string;
+	box-shadow:         @string;
+}
 .cursor-p {
 	cursor: pointer;
+}
+.light-hover {
+	color: @color5;
+	border: 2px solid fade(@color5, 80%);
+	background: fade(@color5, 20%);
 }
 .rotate (@deg) {
 	-webkit-transform: rotate(@deg);
@@ -44,7 +53,8 @@ body, html {
   font-weight: bold;
   letter-spacing: 0.5px;
   overflow-x: hidden;
-	background-image: url('../images/bg-image.jpg');
+	background: linear-gradient(@color4,@color3);
+	// background-image: url('../images/bg-image.jpg');
 	background-size: cover;
 }
 .hide-for-now {
@@ -67,7 +77,7 @@ body, html {
 		// each circle is 40px, with a 3px margin
 		width: 40px;
 		margin: 3px;
-		// 1px lighter border on light a background
+		// 1px lighter border on no background
     border: 1px solid fade(@color5, 80%);
     background: none;
 		// inline circle elements
@@ -103,9 +113,9 @@ body, html {
       }
     }
     &.active-page { // current page has a dark background with a light page number
-			background: fade(@color2, 80%);
+			background: fade(@color2, 50%);
 			span {
-				color: fade(@color5, 80);
+				color: fade(@color5, 80%);
 			}
     }
   }
@@ -127,11 +137,13 @@ body, html {
   width: 100%;
 	// no results
 	.no-results {
+		// upper middle of page
 		display: flex;
 		align-items: center;
 		justify-content: center;
 		height: 60%;
 		p {
+			//light font
 			color: fade(@color5, 80%);
 			font-size: 2em;
 		}
@@ -153,9 +165,7 @@ body, html {
 				.device-name {
 					// light, larger font
 					font-size: 2.5em;
-					color: @color5;
-					border: 2px solid fade(@color5, 80%);
-					background: fade(@color5, 20%);
+					.light-hover();
 					// so the brand text looks to this for positioning
 					position: relative;
 				}
@@ -176,16 +186,18 @@ body, html {
 	    }
 		}
     .device-name {
+			// centered no wider than 500px
 			max-width: 500px;
 			margin: 0 auto;
-			// faded dark font
+			// faded light font
 		  font-size: 2em;
 			line-height: 1.5em;
 		  color: fade(@color5, 80%);
+			// light, padded border
 			padding: 10px 0;
 			border: 2px solid fade(@color5, 50%);
 			&:hover {
-				background: fade(@color5, 20%);
+				.light-hover();
 			}
     }
 		.device-details {
@@ -218,12 +230,11 @@ body, html {
 								width: 100%;
 								padding: 10px;
 								font-size: 2em;
+
 								color: @color5;
 								border: 2px solid fade(@color5, 50%);
 								&:hover {
-									font-size: 2.5em;
-									color: @color5;
-									border: 2px solid fade(@color5, 80%);
+									.light-hover();
 								}
 								span {
 									position: absolute;
@@ -260,7 +271,7 @@ body, html {
 					width: 100%;
 					border: 1px solid fade(@color5, 50%);
 					&:hover {
-						background: fade(@color5, 20%);
+						.light-hover();
 					}
 				}
 			}
@@ -319,15 +330,20 @@ body, html {
       width: 100%; // fill the tank
       height: 50px;
       text-align: center;
-      background: none; // soft, soothing backgrounds
+      background: fade(@color2, 20%); // soft, soothing backgrounds
       border-radius: 2px;
       border: 2px solid fade(@color5, 50%);
       padding: 0 20px;
       overflow-x: hidden;
 			z-index: 1;
+			.box-shadow(0 2px 2px 0 rgba(0,0,0,0.16));
 			&:focus {
 				outline: none;
 				border: 2px solid fade(@color5, 80%);
+			}
+			&::placeholder {
+				font-style: italic;
+				color: fade(@color5, 50%);
 			}
     }
   }

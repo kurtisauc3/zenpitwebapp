@@ -74,16 +74,16 @@
                 <tr>{% if phone.messaging %}<td class="label">Messaging</td><td class="payload">{{ phone.messaging }}</td>{% endif %}</tr>
                 <tr>{% if phone.phonebook %}<td class="label">Phonebook</td><td class="payload">{{ phone.phonebook }}</td>{% endif %}</tr>
                 <tr>{% if phone.call_records %}<td class="label">Call Records</td><td class="payload">{{ phone.call_records }}</td>{% endif %}</tr>
-                <tr>{% if phone.clock %}<td class="label">Clock</td><td> {{ phone.clock }}</td>{% endif %}</tr>
+                <tr>{% if phone.clock %}<td class="label">Clock</td><td class="payload"> {{ phone.clock }}</td>{% endif %}</tr>
                 <tr>{% if phone.alarm %}<td class="label">Alarm</td><td class="payload">{{ phone.alarm }}</td>{% endif %}</tr>
                 {% endif %}
               </table>
             </div>
-            <div class="toggle connectivity">
+            <div class="toggle wireless">
               {% if phone.nfc or phone.wlan or phone.bluetooth or phone.gps or phone.infrared %}
-              <div class="extra-button">Connectivity <span>&#8964;<span></div>
-              <table class="device-connectivity">
-                <tr><th colspan="2">Connectivity</th></tr>
+              <div class="extra-button">Wireless <span>&#8964;<span></div>
+              <table class="device-wireless">
+                <tr><th colspan="2">Wireless</th></tr>
                 <tr>{% if phone.nfc %}<td class="label">NFC</td><td class="payload">{{ phone.nfc }}</td>{% endif %}</tr>
                 <tr>{% if phone.wlan %}<td class="label">WLAN</td><td class="payload">{{ phone.wlan }}</td>{% endif %}</tr>
                 <tr>{% if phone.bluetooth %}<td class="label">Bluetooth</td><td class="payload">{{ phone.bluetooth }}</td>{% endif %}</tr>
