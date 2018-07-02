@@ -43,6 +43,11 @@ body, html {
   font-weight: bold;
   letter-spacing: 0.5px;
   overflow-x: hidden;
+	background-image: url('../images/bg-image.jpg');
+	background-size: cover;
+}
+.hide-for-now {
+	display: none;
 }
 /*-------------------------Pagination Style---------------------------*/
 .pagination {
@@ -61,9 +66,9 @@ body, html {
 		// each circle is 40px, with a 3px margin
 		width: 40px;
 		margin: 3px;
-		// 1px dark border on light a background
-    border: 1px solid @color2;
-    background: @color5;
+		// 1px lighter border on light a background
+    border: 1px solid fade(@color5, 80%);
+    background: none;
 		// inline circle elements
 		display: inline-block;
 		border-radius: 50%;
@@ -75,11 +80,11 @@ body, html {
 			}
 		} // links circular background changes
 		&:hover {
-      background: @color2;
+      background: fade(@color2, 80%);
     }
 		a, span { // page links, current page and prev/next
 			// light font with no underline
-	    color: @color2;
+	    color: fade(@color5, 80%);
 	    text-decoration: none;
 			// like filling a balloon with air
 	    display: block;
@@ -88,63 +93,56 @@ body, html {
 	  }
     &.disabled { // if you hover over a disabled circle, overwrite to original colors
       &:hover {
-        background: @color5;
+        background: none;
 				a, span {
 					&:hover {
-						color: @color2;
+
 					}
 				}
       }
     }
     &.active-page { // current page has a dark background with a light page number
-			background: @color2;
+			background: fade(@color2, 80%);
 			span {
-				color: @color5;
+				color: fade(@color5, 80);
 			}
     }
   }
 	.results-count { // Showing _-_ of _
-		// white, 3px padded backround
-		background: white;
-		padding: 3px;
-		// dark, faded font
-	  color: fade(@color1, 20%);
+		// light, faded font
+	  color: fade(@color5, 50%);
 		font-size: 2em;
 		// centered atop pagination
 		position: absolute;
 		top: 0;
 		left: 50%;
-		.translate(-50%, -100%);
+		.translate(-50%, -150%);
 	}
 }
 /*-------------------------Search Results Style---------------------------*/
 .results {
-	// dead center of screen
-	position: fixed;
-  top: 50%;
+	margin: 0 auto 125px auto;
+	max-width: 1600px;
   width: 100%;
-	.translate(0,-50%);
-	p {
-		// placeholder for details
-		font-size: 1.5em;
-		color: fade(@color1, 20%);
-		text-align: left;
-	}
   li {
-		padding: 10px 0;
+		margin: 10px auto;
 		// clickable
 		.cursor-p();
 		// results are centered on screen
     text-align: center;
     height: auto;
-    width: 100%;
+    width: 90%;
+		max-width: 1600px;
+
 		&.results-view {
+			max-width: 500px;
 			// hover state only applies in results-view
 			&:hover {
 				.device-name {
-					// dark, larger font
-					font-size: 2em;
-					color: @color1;
+					// light, larger font
+					font-size: 2.5em;
+					color: @color5;
+					border: 2px solid fade(@color5, 80%);
 					// so the brand text looks to this for positioning
 					position: relative;
 				}
@@ -165,37 +163,127 @@ body, html {
 	    }
 		}
     .device-name {
+			max-width: 500px;
+			margin: 0 auto;
 			// faded dark font
-		  font-size: 1.5em;
+		  font-size: 2em;
 			line-height: 1.5em;
-		  color: fade(@color1, 20%);
-    }
-		.device-brand {
-			// hide the brand
-      display: none;
+		  color: fade(@color5, 80%);
+			padding: 10px 0;
+			border: 2px solid fade(@color5, 50%);
     }
 		.device-details {
 			// hide the details,
 			display: none;
+			&.active-flex {
+				display: flex;
+				flex-wrap: wrap;
+				justify-content: space-between;
+				.middle-space {
+					display: flex;
+					flex-direction: column;
+					justify-content: center;
+					align-items: center;
+					flex-grow: 1;
+					.device-extra-details {
+						width: 90%;
+						table {
+							width: 100%;
+						}
+						.toggle {
+							display: inline-block;
+							justify-content: space-around;
+							width: 49%;
+							table {
+								display: none;
+							}
+							.extra-button {
+								width: 100%;
+								padding: 10px;
+								font-size: 2em;
+								color: @color5;
+								border: 2px solid fade(@color5, 50%);
+								&:hover {
+									font-size: 2.5em;
+									color: @color5;
+									border: 2px solid fade(@color5, 80%);
+								}
+							}
+						}
+					}
+				}
+				.device-name-active {
+					position: relative;
+					font-size: 4em;
+					color: fade(@color5, 80%);
+					padding: 10px 0;
+					margin: 50px 0;
+					.device-brand-active {
+						color: fade(@color5, 20%);
+						font-size: 4em;
+						position: absolute;
+						display: block;
+						top: 50%;
+						left: 50%;
+						.translate(-50%,-50%);
+					}
+				}
+				.back-to-top {
+					font-size: 1.8em;
+					color: @color5;
+					padding: 10px;
+					margin: 10px 0;
+					width: 100%;
+					border: 1px solid fade(@color5, 50%);
+					&:hover {
+						background: fade(@color5, 20%);
+					}
+				}
+			}
+			table {
+				color: fade(@color5, 80%);
+				background: fade(@color1, 50%);
+				margin: 15px 0;
+				tr {
+
+					width: 100%;
+					td, th {
+						padding: 10px;
+						border: 1px solid fade(@color5, 30%);
+					}
+					th {
+						text-align: left;
+						font-size: 2em;
+
+					}
+					.label {
+						font-size: 1.5em;
+						width: 100px;
+						text-align: right;
+					}
+					.payload {
+						font-size: 1.8em;
+						width: 200px;
+					}
+				}
+			}
 		}
   }
 }
 /*-------------------------Search Box Style---------------------------*/
 .search-box {
 	// 500px or screen width
-  max-width: 100%;
-  width: 500px;
-  &.abs-center {
+	width: 90%;
+  max-width: 500px;
+  &.flex-center {
     position: absolute;
     top: 50%;
     left: 50%;
     .translate(-50%,-50%);
   }
-  &.fix-top {
-    position: fixed;
-    top: 2%;
-    left: 50%;
-    .translate(-50%,0);
+  &.rel-top {
+    position: relative;
+		margin: 2% auto 0 auto;
     .logo {
       height: 40px;
     }
@@ -216,15 +304,20 @@ body, html {
       }
     }
     input {
-      color: @color1;
+      color: @color5;
       width: 100%; // fill the tank
       height: 50px;
-      text-align: left;
-      background: @color5; // soft, soothing backgrounds
+      text-align: center;
+      background: none; // soft, soothing backgrounds
       border-radius: 2px;
-      border: 2px solid @color2;
-      padding: 0 20px 0 75px;
+      border: 2px solid fade(@color5, 50%);
+      padding: 0 20px;
       overflow-x: hidden;
+			z-index: 1;
+			&:focus {
+				outline: none;
+				border: 2px solid fade(@color5, 80%);
+			}
     }
   }
 }

@@ -3,6 +3,9 @@
 var isMobile;
 var pageNumbersActive = false;
 var resultsActive = false;
+var backText = 'back';
+var oldText;
+
 
 /*----------standard jquery fire when ready-----------*/
 
@@ -25,8 +28,12 @@ $(document).ready(function() {
   /*----------click functions-----------*/
 
   // brings up details, hides other elements
-  $('.device').click(function() {
+  $('.device-name').click(function() {
     toggleDetails($(this));
+  });
+  // brings up the extra details
+  $('.extra-button').click(function() {
+    showExtra($(this));
   });
   // brings up the other page numbers when in mobile
   $('.active-page').click(function() {
@@ -34,34 +41,39 @@ $(document).ready(function() {
       togglePaginationNumbers();
     }
   });
+  // scrolls to the top
+  $('.back-to-top').click(function() {
+    $("html, body").animate({ scrollTop: 0}, 400);
+  });
 });
-/*----------flips a boolean associated with the appropriate section, then sends it off-----------*/
-function toggleBackButton(section) {
-  switch (section) {
-    case 'pagination':
-      pageNumbersActive = !pageNumbersActive;
-      console.log('pagination active? '+ pageNumbersActive);
-      break;
-    case 'results':
-      resultsActive = !resultsActive;
-      console.log('results active? '+ resultsActive);
-      break;
-    default:
-      break;
+/*----------flips text based on the text-swap attribute in html-----------*/
+function swapText(el) {
+  if (el.text() == el.data("text-swap")) {
+    el.text(el.data("text-original"));
+  } else {
+    el.data("text-original", el.text());
+    el.text(el.data("text-swap"));
   }
 }
 /*----------hides all elements but the one clicked, then shows it's details-----------*/
 function toggleDetails(el) {
+  device = el.closest('.device');
   $('.pagination').toggle();
-  el.toggleClass('results-view');
-  $('.device').not(el).toggle();
-  el.children('.device-details').toggle();
-  toggleBackButton('results');
+  device.toggleClass('results-view');
+  $('.device').not(device).toggle();
+  device.children('.device-details').toggleClass('active-flex');
+  swapText(el);
+}
+/*----------hides all elements but the one clicked, then shows it's details-----------*/
+function showExtra(el) {
+  wrapper = el.closest('.toggle');
+  wrapper.toggleClass('toggle');
+  el.remove();
 }
 /*----------toggle elements, back button, and animate the wrapper-----------*/
 function togglePaginationNumbers() {
   $('.pagination-numbers').toggle();
-  toggleBackButton('pagination');
+  swapText($('.active-page span'));
   $('#pagination-anim').animateCss('bounceInUp');
 }
 /*----------most thorough mobile check I've found-----------*/
