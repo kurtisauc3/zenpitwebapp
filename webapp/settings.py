@@ -3,16 +3,18 @@ Would you believe this is where the magic happens? Full customization :D
 """
 
 import os
+from webapp.settings_secret import *
 # This bad boy makes the webapp folder the whitehouse
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-# Don't email this, 
-SECRET_KEY = "your-secret-key-goes-here"
+# Don't email this,
+# SECRET_KEY = "your-secret-key-goes-here"
 
 # I hope i remembered to turn this off
-DEBUG = True
+DEBUG = False
+# and i did, good job me :)
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost','zenpitwebapp.herokuapp.com']
 
 
 # Make a new line down there, then type that app name you just created, along with another comma
@@ -112,3 +114,7 @@ STATICFILES_DIRS = [
 ]
 # round em up, slap em in here
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
+
+CSRF_COOKIE_SECURE = True
+SESSION_COOKIE_SECURE = True
