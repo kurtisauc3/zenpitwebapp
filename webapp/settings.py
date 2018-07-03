@@ -9,8 +9,8 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # Don't email this,
 SECRET_KEY = os.environ['SECRET_KEY']
 
-# Figure this out later
-DEBUG = False
+# I hope i remembered to turn this off
+DEBUG = True
 
 ALLOWED_HOSTS = ['localhost','zenpitwebapp.herokuapp.com']
 
@@ -36,7 +36,6 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 # We gotta handle those urls somewhere, check out urls.py of the webapp folder for our whitehouse map
