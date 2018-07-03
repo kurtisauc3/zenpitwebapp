@@ -5,3 +5,5 @@
 __pycache__/
 # ignore database files
 *.sqlite3
+# ignore secrets
+webapp/settings_secret.py
