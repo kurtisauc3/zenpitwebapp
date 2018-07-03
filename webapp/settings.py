@@ -7,10 +7,10 @@ import os
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # Don't email this,
-SECRET_KEY = 'd+tg9#q0p(&%qw_7-5sbisbvrnk!shj(smy=4&&f&)b-oqa_i*'
+SECRET_KEY = os.environ['SECRET_KEY']
 
 # I hope i remembered to turn this off
-DEBUG = False
+DEBUG = True
 # and i did, good job me :)
 
 ALLOWED_HOSTS = ['localhost','zenpitwebapp.herokuapp.com']
@@ -51,6 +51,9 @@ TEMPLATES = [
         'OPTIONS': {
             'context_processors': [
                 'django.template.context_processors.debug',
+                "django.core.context_processors.i18n",
+                "django.core.context_processors.media",
+                "django.core.context_processors.static",
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
@@ -117,3 +120,6 @@ STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 
 CSRF_COOKIE_SECURE = True
 SESSION_COOKIE_SECURE = True
+
+os.environ['HTTPS'] = "on"
+os.environ['wsgi.url_scheme'] = 'https'
