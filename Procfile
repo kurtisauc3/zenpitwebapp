@@ -1,2 +1,2 @@
 web: python manage.py runserver
-web: gunicorn webapp.wsgi --preload
+web: gunicorn --pythonpath path_wsgi_application --log-file -
