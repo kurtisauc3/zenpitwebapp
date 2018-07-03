@@ -27,12 +27,16 @@ urllib3==1.23
 ### 1. virtualenv
 Activate your [virtualenv](https://virtualenv.pypa.io/en/stable/installation/), and make an `env` with python3:
 
-```
-$ cd /path/to/your/envs
-$ virtualenv -p python3 env
-$ source env/bin/activate
-```
 
+    $ cd /path/to/your/envs
+    $ virtualenv -p python3 env
+    $ source env/bin/activate
+
+If you don't have virtualenv, you will have to install it first. This can be easily done in your terminal:
+
+    $ pip install virtualenv
+
+*pip usually doesn't require `sudo`*
 ### 2. Download
 Grab a copy of the source code and clone it:
 
@@ -43,18 +47,27 @@ Grab a copy of the source code and clone it:
 ### 3. Requirements
  *requirements.txt* contains all the packages need to run the website. Make sure your env is activated and run:
 
-`$ pip install -r requirements.txt`
+    $ pip install -r requirements.txt
 
-### 4. Tweaks
+### 4. Tweaks to files
 
 #### SECRET_KEY
-Go to <http://www.miniwebtool.com/django-secret-key-generator/>, create your secret key, copy it. Open your `webapp/settings.py`, find `SECRET_KEY` line, paste your secret key.
+
+1. Open your `webapp/settings.py`, and find the `SECRET_KEY` line at the top.
+
+2. Go to <http://www.miniwebtool.com/django-secret-key-generator/>, create your secret key, and copy it.
+
+3. Paste your secret key over the text **your-secret-key-goes-here**:
+
+        $ SECRET_KEY = "your-secret-key-goes-here"
 
 #### Initialize the database
-Evem though this project doesn't use a database, you'll still have to migrate
+Even though this project doesn't use a database, you'll still have to migrate because Django requires this step to run.
 
-`python manage.py migrate`
+    $ python manage.py migrate
 
 ### Ready to Run
 
-`python manage.py runserver`
+    $ python manage.py runserver
+
+See it in action at http://localhost:8000.

@@ -3,14 +3,11 @@ Would you believe this is where the magic happens? Full customization :D
 """
 
 import os
-from webapp.settings_secret import *
 # This bad boy makes the webapp folder the whitehouse
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-
-# SECRET_KEY goes here like SECRET_KEY = "wowimasecret"
-# then remove webapp.settings_secret import *
-
+# Don't email this, 
+SECRET_KEY = "your-secret-key-goes-here"
 
 # I hope i remembered to turn this off
 DEBUG = True
