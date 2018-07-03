@@ -10,7 +10,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = os.environ['SECRET_KEY']
 
 # I hope i remembered to turn this off
-DEBUG = True
+DEBUG = False
 # and i did, good job me :)
 
 ALLOWED_HOSTS = ['localhost','zenpitwebapp.herokuapp.com']
