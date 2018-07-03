@@ -1,1 +1,2 @@
-web: gunicorn webapp --preload
+web: python manage.py runserver
+web: gunicorn webapp.wsgi --preload
