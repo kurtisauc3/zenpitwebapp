@@ -30,7 +30,7 @@ Activate your [virtualenv](https://virtualenv.pypa.io/en/stable/installation/), 
 ```
 $ cd /path/to/your/envs
 $ virtualenv -p python3 env
-$ source lookup/bin/activate
+$ source env/bin/activate
 ```
 
 ### 2. Download
