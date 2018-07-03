@@ -3,7 +3,6 @@ Would you believe this is where the magic happens? Full customization :D
 """
 
 import os
-from webapp.settings_secret import *
 # This bad boy makes the webapp folder the whitehouse
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
